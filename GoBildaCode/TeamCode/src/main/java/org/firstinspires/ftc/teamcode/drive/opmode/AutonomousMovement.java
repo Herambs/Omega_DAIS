@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -27,6 +28,8 @@ public class AutonomousMovement extends LinearOpMode {
 
     private double countsPerInch=1917.0;
 
+    private DcMotor slider;
+
 
     public void forward(double distance){
 
@@ -45,6 +48,12 @@ public class AutonomousMovement extends LinearOpMode {
         drive.followTrajectory(forwardTrajectory);
 
     }
+
+//    SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+//    Trajectory traj = drive.trajectoryBuilder(new Pose2d())
+//            .lineToLinearHeading(new Pose2d(24, 0, Math.toRadians(90)))
+//            .build();
+
 
 //    public void variableForward(double distance){
 //
@@ -176,6 +185,8 @@ public class AutonomousMovement extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
+        slider = hardwareMap.get(DcMotor.class, "LF");
+
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         waitForStart();
@@ -184,13 +195,18 @@ public class AutonomousMovement extends LinearOpMode {
             return;
         }
         auto.servoZero();
+//        drive.followTrajectory(traj);
         forward(48.0);
         turnLeft(90);
         forward(75.0);
         strafeLeft(27.0);  // center strafe
+
+//        slider.setPower(0.5);
         auto.channelMotion(0.5);
         sleep(1500);
+
         auto.channelZero();
+//        slider.setPower(0.1);
         auto.servoPlace();
         sleep(3000);
         forward(3.5);

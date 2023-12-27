@@ -214,6 +214,91 @@ public class AutonomousMovement extends LinearOpMode {
         auto.channelZero();
 
     }
+
+    public void rightDropShort(){
+
+        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+
+        auto.servoZero();
+        forward(25.0);
+        turnLeft(92.0);
+        forward(25);
+        sleep(500);
+        strafeRight(9);
+        auto.channelMotion(0.5);
+        sleep(2000);//1600 for longer distance auto
+        auto.channelZero();
+        auto.servoPlace();
+        sleep(3000);
+        auto.ForwardDistance(0.2);
+
+
+        auto.drop();
+        sleep(1000);
+        auto.servoZero();
+        sleep(3000);
+        auto.channelMotion(-0.25);
+        sleep(1200);
+        auto.channelZero();
+
+    }
+
+    public void centerDropShort(){
+
+        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+
+        auto.servoZero();
+        forward(46.0);
+        turnLeft(92.0);
+        forward(25);
+        sleep(500);
+        strafeLeft(20);
+        auto.channelMotion(0.5);
+        sleep(2000);//1600 for longer distance auto
+        auto.channelZero();
+        auto.servoPlace();
+        sleep(3000);
+        auto.ForwardDistance(0.2);
+
+
+        auto.drop();
+        sleep(1000);
+        auto.servoZero();
+        sleep(3000);
+        auto.channelMotion(-0.25);
+        sleep(1200);
+        auto.channelZero();
+
+    }
+
+    public void leftDropShort(){
+
+        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+
+        auto.servoZero();
+        forward(25.0);
+        turnLeft(92);
+        forward(20);
+        sleep(1000);
+        forward(7);
+        strafeLeft(7);
+        auto.channelMotion(0.5);
+        sleep(2000);//1600 for longer distance auto
+        auto.channelZero();
+        auto.servoPlace();
+        sleep(3000);
+        auto.ForwardDistance(0.2);
+
+
+        auto.drop();
+        sleep(1000);
+        auto.servoZero();
+        sleep(3000);
+        auto.channelMotion(-0.25);
+        sleep(1200);
+        auto.channelZero();
+
+    }
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -227,8 +312,11 @@ public class AutonomousMovement extends LinearOpMode {
 
 //        centerDrop();  // Spike Location center
 //        leftDrop();
-        rightDrop();
+//        rightDrop();
 //        centerDrop();
+//        rightDropShort();
+//        centerDropShort();
+        leftDropShort();
 
 
     }

@@ -467,7 +467,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     public void ForwardDistance(double power){
         double D = dsensor.getDistance(DistanceUnit.CM);
         double set=power;
-        while(D >= 21.5) {
+        while(D >= 17) { //D = 21.5 for longer path
             D = dsensor.getDistance(DistanceUnit.CM);
             rightFront.setPower(set);
             rightRear.setPower(set);
@@ -509,8 +509,8 @@ public class SampleMecanumDrive extends MecanumDrive {
     }
 
     public void servoPlace(){
-        boxLeft.setPosition(0.7);
-        boxRight.setPosition(0.3);
+        boxLeft.setPosition(1);//0.7 for longer distance auto
+        boxRight.setPosition(0);//0.3 for longer distance auto
     }
     public void drop(){
         InnerGrab.setPosition(0.5);
