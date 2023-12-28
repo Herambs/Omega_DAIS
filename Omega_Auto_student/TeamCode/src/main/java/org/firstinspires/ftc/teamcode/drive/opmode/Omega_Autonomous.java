@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.util.Encoder;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "AutonomousMovement", group = "Autonomous")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Omega_Autonomous", group = "Autonomous")
 public class Omega_Autonomous extends LinearOpMode {
 
     private double forwardDistance=0;
@@ -153,8 +153,11 @@ public class Omega_Autonomous extends LinearOpMode {
     public void rightDropShort(){
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-        forward(37);
-        turnLeft(90);
+        forward(28);
+        turnLeft(95);
+        forward(29);
+        strafeRight(7);
+        sleep(5000);
 
 
     }
@@ -162,7 +165,11 @@ public class Omega_Autonomous extends LinearOpMode {
     public void centerDropShort(){
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
+        forward(28);
+        turnLeft(190);
+        turnRight(95);
+        forward(30);
+        sleep(5000);
 
 
     }
@@ -190,7 +197,7 @@ public class Omega_Autonomous extends LinearOpMode {
 //        rightDrop();
 //        centerDrop();
         rightDropShort();
-//        centerDropShort();
+        //centerDropShort();
         //leftDropShort();
 
 
