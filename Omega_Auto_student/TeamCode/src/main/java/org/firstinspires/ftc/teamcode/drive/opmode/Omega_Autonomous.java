@@ -154,7 +154,9 @@ public class Omega_Autonomous extends LinearOpMode {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
         forward(28);
-        turnLeft(95);
+        turnRight(95);
+        //drop purple pixel
+        turnRight(180);
         forward(29);
         strafeRight(7);
         sleep(5000);
@@ -166,8 +168,8 @@ public class Omega_Autonomous extends LinearOpMode {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
         forward(28);
-        turnLeft(190);
-        turnRight(95);
+        //drop purple pixel
+        turnLeft(95);
         forward(30);
         sleep(5000);
 
@@ -177,6 +179,11 @@ public class Omega_Autonomous extends LinearOpMode {
     public void leftDropShort(){
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+        forward(28);
+        turnLeft(95);
+        //drop purple pixel
+        forward(30);
+        sleep(5000);
 
 
 
