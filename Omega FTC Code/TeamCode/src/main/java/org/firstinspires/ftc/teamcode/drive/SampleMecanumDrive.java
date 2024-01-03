@@ -75,7 +75,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     private TrajectoryFollower follower;
 
-    private DcMotorEx leftFront, leftRear, rightRear, rightFront,slider;
+    private DcMotorEx leftFront, leftRear, rightRear, rightFront,leftslider, rightslider;
 
     DistanceSensor dsensor;
 
@@ -240,7 +240,8 @@ public class SampleMecanumDrive extends MecanumDrive {
         leftRear = hardwareMap.get(DcMotorEx.class, "LB");
         rightRear = hardwareMap.get(DcMotorEx.class, "RB");
         rightFront = hardwareMap.get(DcMotorEx.class, "RF");
-        slider=hardwareMap.get(DcMotorEx.class,"channel");
+        leftslider=hardwareMap.get(DcMotorEx.class,"Left_slider");
+        rightslider=hardwareMap.get(DcMotorEx.class,"Right_slider");
         dsensor = hardwareMap.get(DistanceSensor.class,"dropping_distance");
 
         boxLeft= hardwareMap.get(Servo.class,"boxLeft");
@@ -270,6 +271,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 //        rightRear.setDirection(DcMotorEx.Direction.REVERSE); // add if needed
         leftFront.setDirection(DcMotorEx.Direction.REVERSE); // add if needed
         leftRear.setDirection(DcMotorEx.Direction.REVERSE); // add if needed
+        leftslider.setDirection(DcMotorEx.Direction.REVERSE); // add if needed
 
         List<Integer> lastTrackingEncPositions = new ArrayList<>();
         List<Integer> lastTrackingEncVels = new ArrayList<>();
@@ -461,7 +463,8 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     public void channelMotion(double power){
         double set=power;
-        slider.setPower(set);
+        leftslider.setPower(set);
+        rightslider.setPower(set);
     }
 
     public void ForwardDistance(double power){
@@ -505,19 +508,20 @@ public class SampleMecanumDrive extends MecanumDrive {
     }
 
     public void channelZero(){
-        slider.setPower(0.1);
+        leftslider.setPower(0.1);
+        rightslider.setPower(0.1);
     }
 
     public void servoPlace(){
-        boxLeft.setPosition(1);//0.7 for longer distance auto
-        boxRight.setPosition(0);//0.3 for longer distance auto
+        boxLeft.setPosition(0.55);//0.7 for longer distance auto
+        boxRight.setPosition(0.45);//0.3 for longer distance auto
     }
     public void drop(){
-        InnerGrab.setPosition(0.5);
+        InnerGrab.setPosition(0.32);
     }
     public  void servoZero(){
-        boxLeft.setPosition(0);
-        boxRight.setPosition(1);
-        InnerGrab.setPosition(0.8);
+        boxLeft.setPosition(0.02);
+        boxRight.setPosition(0.98);
+        InnerGrab.setPosition(0.75);
     }
 }

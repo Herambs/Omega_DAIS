@@ -23,8 +23,8 @@ public class LocalizationTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        intake= hardwareMap.get(DcMotor.class,"intake");
-        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+//        intake= hardwareMap.get(DcMotor.class,"intake");
+//        intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
 //        boolean isButtonPressed=gamepad1.x;
 
@@ -51,11 +51,11 @@ public class LocalizationTest extends LinearOpMode {
 
             boolean isButtonPressed=gamepad1.x;
 
-            if(isButtonPressed){
-                intake.setPower(0.5);
-            }else{
-                intake.setPower(0);
-            }
+//            if(isButtonPressed){
+//                intake.setPower(0.5);
+//            }else{
+//                intake.setPower(0);
+//            }
         }
     }
 }
