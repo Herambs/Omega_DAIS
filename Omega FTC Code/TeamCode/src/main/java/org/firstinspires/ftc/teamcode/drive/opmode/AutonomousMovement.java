@@ -279,6 +279,35 @@ public class AutonomousMovement extends LinearOpMode {
 
     }
 
+    public void rightDropShortRed(){
+
+        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+
+        auto.servoZero();
+        backward(25.0);
+        turnLeft(92.5);
+        strafeLeft(21.0);
+        sleep(500);
+        forward(25);
+        strafeRight(26.5);
+        auto.channelMotion(0.5);
+        sleep(1500);//1600 for longer distance auto
+        auto.channelZero();
+        auto.servoPlace();
+        sleep(3000);
+        auto.ForwardDistance(0.2);
+
+
+        auto.drop();
+        sleep(1000);
+        auto.servoZero();
+        sleep(3000);
+        auto.channelMotion(-0.35);
+        sleep(2000);
+        auto.channelZero();
+
+    }
+
     public void centerDropShort(){
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
@@ -303,6 +332,34 @@ public class AutonomousMovement extends LinearOpMode {
         sleep(3000);
         auto.channelMotion(-0.25);
         sleep(1200);
+        auto.channelZero();
+
+    }
+
+    public void centerDropShortRed(){
+
+        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+
+        auto.servoZero();
+        backward(46.0);
+        turnLeft(93.5);
+        forward(25);
+        sleep(500);
+        strafeRight(20);
+        auto.channelMotion(0.5);
+        sleep(2000);//1600 for longer distance auto
+        auto.channelZero();
+        auto.servoPlace();
+        sleep(3000);
+        auto.ForwardDistance(0.2);
+
+
+        auto.drop();
+        sleep(1000);
+        auto.servoZero();
+        sleep(3000);
+        auto.channelMotion(-0.35);
+        sleep(2000);
         auto.channelZero();
 
     }
@@ -336,17 +393,50 @@ public class AutonomousMovement extends LinearOpMode {
 
     }
 
+    public void leftDropShortRed(){
+
+        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+
+        auto.servoZero();
+        backward(25.0);
+        turnRight(93.5);
+        turnLeft(182.5);
+        forward(25);
+        strafeLeft(7);
+        auto.channelMotion(0.5);
+        sleep(1500);//1600 for longer distance auto
+        auto.channelZero();
+        auto.servoPlace();
+        sleep(3000);
+        auto.ForwardDistance(0.2);
+
+
+        auto.drop();
+        sleep(1000);
+        auto.servoZero();
+        sleep(3000);
+        auto.channelMotion(-0.35);
+        sleep(2000);
+        auto.channelZero();
+
+    }
+
     public void centerDropRed(){
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
+
+
+
+
         auto.servoZero();//To be change if servo does not work in  auto code
-//        servoZero();
         backward(46);
-        turnLeft(92.0);
+//        auto.purpleDrop(0.8);
+//        sleep(100);
+//        auto.outTakeStop();
+//        backward(4);
+        turnLeft(92.5);
         forward(74.5);
-        strafeRight(20);
-//        auto.StrafeLeftDistance(0.6);
-//        strafeLeft(7.0);
+        strafeRight(21.5);
         auto.channelMotion(0.7);
 
         sleep(1000);
@@ -360,8 +450,8 @@ public class AutonomousMovement extends LinearOpMode {
         sleep(1000);
         auto.servoZero();
         sleep(3000);
-        auto.channelMotion(-0.25);
-        sleep(1200);
+        auto.channelMotion(-0.35);
+        sleep(2000);
         auto.channelZero();
 
 
@@ -373,7 +463,7 @@ public class AutonomousMovement extends LinearOpMode {
 
         auto.servoZero();
         backward(25.0);
-        turnLeft(92.0);
+        turnLeft(93.5);
 //        turnLeft(180.0);
         strafeLeft(21.0);
         forward(73.5);
@@ -393,8 +483,8 @@ public class AutonomousMovement extends LinearOpMode {
         sleep(1000);
         auto.servoZero();
         sleep(3000);
-        auto.channelMotion(-0.25);
-        sleep(1200);
+        auto.channelMotion(-0.35);
+        sleep(2000);
         auto.channelZero();
 
     }
@@ -405,8 +495,8 @@ public class AutonomousMovement extends LinearOpMode {
 
         auto.servoZero();
         backward(25.0);
-        turnRight(92.0);
-        turnLeft(182.0);
+        turnRight(93.5);
+        turnLeft(182);
         strafeLeft(21.0);
         forward(73.5);
         sleep(500);
@@ -425,8 +515,8 @@ public class AutonomousMovement extends LinearOpMode {
         sleep(1000);
         auto.servoZero();
         sleep(3000);
-        auto.channelMotion(-0.25);
-        sleep(1200);
+        auto.channelMotion(-0.35);
+        sleep(2000);
         auto.channelZero();
 
     }
@@ -458,8 +548,9 @@ public class AutonomousMovement extends LinearOpMode {
 //        leftDropShort();
 //        centerDropRed();
 //        rightDropRed();
-        leftDropRed();
-
-
+//        leftDropRed();
+//        centerDropShortRed();
+//        rightDropShortRed();
+        leftDropShortRed();
     }
 }

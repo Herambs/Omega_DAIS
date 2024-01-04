@@ -60,7 +60,7 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
 @Config
 public class SampleMecanumDrive extends MecanumDrive {
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(7, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(6, 0, 0);
 
     public static double LATERAL_MULTIPLIER = 1.56;
 
@@ -75,7 +75,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     private TrajectoryFollower follower;
 
-    private DcMotorEx leftFront, leftRear, rightRear, rightFront,leftslider, rightslider;
+    private DcMotorEx leftFront, leftRear, rightRear, rightFront,leftslider, rightslider, out_take;
 
     DistanceSensor dsensor;
 
@@ -242,6 +242,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         rightFront = hardwareMap.get(DcMotorEx.class, "RF");
         leftslider=hardwareMap.get(DcMotorEx.class,"Left_slider");
         rightslider=hardwareMap.get(DcMotorEx.class,"Right_slider");
+        out_take = hardwareMap.get(DcMotorEx.class,"Front_intake");
         dsensor = hardwareMap.get(DistanceSensor.class,"dropping_distance");
 
         boxLeft= hardwareMap.get(Servo.class,"boxLeft");
@@ -507,9 +508,38 @@ public class SampleMecanumDrive extends MecanumDrive {
         leftFront.setPower(0);
     }
 
+    public void StrafeRightDistance(double power){
+        double D = dsensor.getDistance(DistanceUnit.CM);
+        double set=power;
+        while(D >= 23) {
+            D = dsensor.getDistance(DistanceUnit.CM);
+            rightFront.setPower(-set);
+            rightRear.setPower(set);
+            leftRear.setPower(-set);
+            leftFront.setPower(set);
+
+//            telemetry.addData("Dsensor value=%f",D);
+//            telemetry.update();
+
+        }
+        rightFront.setPower(0);
+        rightRear.setPower(0);
+        leftRear.setPower(0);
+        leftFront.setPower(0);
+    }
+
     public void channelZero(){
         leftslider.setPower(0.1);
         rightslider.setPower(0.1);
+    }
+
+    public void purpleDrop(double power){
+        double pwr = power;
+        out_take.setPower(pwr);
+    }
+
+    public void outTakeStop(){
+        out_take.setPower(0);
     }
 
     public void servoPlace(){
