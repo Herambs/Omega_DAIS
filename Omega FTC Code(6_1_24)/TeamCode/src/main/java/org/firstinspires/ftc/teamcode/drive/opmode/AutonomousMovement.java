@@ -163,10 +163,13 @@ public class AutonomousMovement extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        forward(46.0);  // Center Drop Forward = 48
-        turnLeft(92.0);
+        backward(46.0);  // Center Drop Forward = 48
+        turnRight(184);
+        //drop purple pixel
+        backward(3.0);
+        turnLeft(92);
         forward(74.5);
-        strafeLeft(25);
+
 //        auto.StrafeLeftDistance(0.6);
 //        strafeLeft(7.0);
         auto.channelMotion(0.7);
@@ -193,12 +196,17 @@ public class AutonomousMovement extends LinearOpMode {
 
 
         auto.servoZero();
-        forward(25.0);
-        turnRight(90);
-        turnLeft(180.0);
-        strafeRight(25.0);
+        backward(46);
+        turnRight(92);
+        //purple drop
+        strafeRight(20);
         forward(73.5);
+
+
         sleep(500);
+
+
+
         auto.StrafeLeftDistance(0.6);
         strafeLeft(11);
         auto.channelMotion(0.5);
@@ -224,12 +232,13 @@ public class AutonomousMovement extends LinearOpMode {
     public void rightDrop(){
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-        auto.servoZero();
-        forward(25.0);
-        turnLeft(92.0);
-        strafeRight(22.0);
+        backward(46);
+        turnLeft(92);
+        turnRight(184);
         forward(72.5);
+
+
+
         sleep(500);
         auto.StrafeLeftDistance(0.5);
 //        strafeLeft(10.0);
@@ -542,7 +551,7 @@ public class AutonomousMovement extends LinearOpMode {
 //        centerDrop();  // Spike Location center
 //        leftDrop();
 //        rightDrop();
-//        centerDrop();
+        centerDrop();
 //        rightDropShort();
 //        centerDropShort();
 //        leftDropShort();
@@ -551,6 +560,6 @@ public class AutonomousMovement extends LinearOpMode {
 //        leftDropRed();
 //        centerDropShortRed();
 //        rightDropShortRed();
-        leftDropShortRed();
+     //   leftDropShortRed();
     }
 }
