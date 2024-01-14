@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.opmode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,9 +9,13 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.util.Encoder;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "AutonomousMovement", group = "Autonomous")
@@ -35,6 +40,17 @@ public class AutonomousMovement extends LinearOpMode {
     private Servo InnerGrab;
 
     private DcMotorEx leftslider, rightslider;
+
+    private OpenCvCamera controlHubCam;  // Use OpenCvCamera class from FTC SDK
+
+    double cX = 0;
+    double cY = 0;
+
+    public static final double objectWidthInRealWorldUnits = 4;  // Replace with the actual width of the object in real-world units
+    public static final double focalLength = 600;  // Replace with the focal length of the camera in pixels
+
+    private static final int CAMERA_WIDTH = 640; // width  of wanted camera resolution
+    private static final int CAMERA_HEIGHT = 480; // height of wanted camera resolution
 
     DistanceSensor dsensor;
 
@@ -66,6 +82,45 @@ public class AutonomousMovement extends LinearOpMode {
 //    }
 
 
+
+    public void lineToHeading(double x, double y, double heading){
+
+        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+
+        double x1 = x;
+        double y1 = y;
+        double heading1 = heading;
+
+        // Define the starting pose
+        Pose2d startPose = new Pose2d();
+
+        // Create the first trajectory: Move forward 25 inches
+        Trajectory lineToLinearHeading = drive.trajectoryBuilder(startPose)
+                .lineToLinearHeading(new Pose2d(x1, y1, Math.toRadians(heading1)))
+                .build();
+
+        drive.followTrajectory(lineToLinearHeading);
+
+    }
+
+    public void strafeHeading(double x, double y){
+
+        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+
+        double x1 = x;
+        double y1 = y;
+
+        // Define the starting pose
+        Pose2d startPose = new Pose2d();
+
+        // Create the first trajectory: Move forward 25 inches
+        Trajectory lineToLinearHeading = drive.trajectoryBuilder(startPose)
+                .strafeTo(new Vector2d(x1, y1))
+                .build();
+
+        drive.followTrajectory(lineToLinearHeading);
+
+    }
     public void forward(double distance){
 
         SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
@@ -163,27 +218,27 @@ public class AutonomousMovement extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        forward(46.0);  // Center Drop Forward = 48
-        turnLeft(92.0);
-        forward(74.5);
-        strafeLeft(25);
-//        auto.StrafeLeftDistance(0.6);
-//        strafeLeft(7.0);
-        auto.channelMotion(0.7);
-        sleep(1000);
-        auto.channelZero();
-        sleep(1000);
+        backward(39.8);
+        auto.purpleDrop1(-0.15);
+        sleep(550);
+        auto.purpleDrop1(0);
+        backward(5);
+        turnRight(94);
+        forward(72);
+        sleep(200);
+        strafeLeft(22);
+//        auto.channelMotion(0.5, 1500);
         auto.servoPlace();
-        sleep(2000);
+        sleep(3000);
         auto.ForwardDistance(0.2);
-        sleep(500);
+
+
         auto.drop();
         sleep(1000);
         auto.servoZero();
-        sleep(3000);
-        auto.channelMotion(-0.25);
-        sleep(1200);
-        auto.channelZero();
+        sleep(2800);
+//        auto.channelMotion(-0.25, -1500);
+
 
     }
 
@@ -191,22 +246,29 @@ public class AutonomousMovement extends LinearOpMode {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
+//        forward(23);
+//        lineToHeading(-23, 0, 93.5);
+//        strafeHeading(0,-23);
+//        lineToHeading(75,0,0);
+
 
         auto.servoZero();
-        forward(25.0);
-        turnRight(90);
-        turnLeft(180.0);
-        strafeRight(25.0);
+        backward(22);
+        turnRight(94);
+        forward(3.2);
+        auto.purpleDrop1(-0.15);
+        sleep(550);
+        auto.purpleDrop1(0);
+        backward(3.7);
+        turnLeft(94);
+        backward(21.5);
+        turnRight(94);
         forward(73.5);
         sleep(500);
-        auto.StrafeLeftDistance(0.6);
-        strafeLeft(11);
-        auto.channelMotion(0.5);
-        sleep(1600);
-        auto.channelZero();
+        strafeLeft(28.5);
+        auto.channelMotionEncoder(0.5, 1500);
         auto.servoPlace();
         sleep(3000);
-//        forward(3.5);
         auto.ForwardDistance(0.2);
 
         sleep(500);
@@ -214,9 +276,7 @@ public class AutonomousMovement extends LinearOpMode {
         sleep(1000);
         auto.servoZero();
         sleep(3000);
-        auto.channelMotion(-0.25);
-        sleep(1200);
-        auto.channelZero();
+        auto.channelMotionDown(-0.25, -1500);
 
 
     }
@@ -224,30 +284,30 @@ public class AutonomousMovement extends LinearOpMode {
     public void rightDrop(){
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+        backward(22.5);
+        turnLeft(93);
+        forward(3);
+        auto.purpleDrop1(-0.15);
+        sleep(550);
+        auto.purpleDrop1(0);
+        backward(3.5);
+        turnRight(94);
+        backward(21.5);
+        turnRight(93.5);
+        forward(80);
 
-        auto.servoZero();
-        forward(25.0);
-        turnLeft(92.0);
-        strafeRight(22.0);
-        forward(72.5);
         sleep(500);
-        auto.StrafeLeftDistance(0.5);
-//        strafeLeft(10.0);
-        auto.channelMotion(0.5);
-        sleep(1600);
-        auto.channelZero();
+        strafeLeft(18.5);
+       auto.channelMotionEncoder(0.5,1500);
         auto.servoPlace();
         sleep(3000);
         auto.ForwardDistance(0.2);
 //
-        sleep(500);
         auto.drop();
         sleep(1000);
         auto.servoZero();
         sleep(3000);
-        auto.channelMotion(-0.25);
-        sleep(1200);
-        auto.channelZero();
+        auto.channelMotionDown(-0.25, -1300);
 
     }
 
@@ -256,13 +316,19 @@ public class AutonomousMovement extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        forward(25.0);
-        turnLeft(92.0);
+        backward(23.0);
+        turnLeft(94.0);
+        forward(4);
+        auto.purpleDrop1(-0.15);
+        sleep(550);
+        auto.purpleDrop1(0);
+        backward(4);
+
+        turnRight(183.0);
         forward(25);
         sleep(500);
-        strafeRight(9);
-        auto.channelMotion(0.5);
-        sleep(2000);//1600 for longer distance auto
+        strafeRight(4);
+//        auto.channelMotion(0.5, 1000);
         auto.channelZero();
         auto.servoPlace();
         sleep(3000);
@@ -273,8 +339,7 @@ public class AutonomousMovement extends LinearOpMode {
         sleep(1000);
         auto.servoZero();
         sleep(3000);
-        auto.channelMotion(-0.25);
-        sleep(1200);
+//        auto.channelMotion(-0.25, 100);
         auto.channelZero();
 
     }
@@ -284,15 +349,18 @@ public class AutonomousMovement extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        backward(25.0);
-        turnLeft(92.5);
+        backward(23.0);
+        turnLeft(94);
+        forward(2.5);
+        auto.purpleDrop1(-0.15);
+        sleep(550);
+        auto.purpleDrop1(0);
+        backward(3);
         strafeLeft(21.0);
         sleep(500);
         forward(25);
-        strafeRight(26.5);
-        auto.channelMotion(0.5);
-        sleep(1500);//1600 for longer distance auto
-        auto.channelZero();
+        strafeRight(27);
+        auto.channelMotionEncoder(0.5,1600);
         auto.servoPlace();
         sleep(3000);
         auto.ForwardDistance(0.2);
@@ -302,10 +370,7 @@ public class AutonomousMovement extends LinearOpMode {
         sleep(1000);
         auto.servoZero();
         sleep(3000);
-        auto.channelMotion(-0.35);
-        sleep(2000);
-        auto.channelZero();
-
+        auto.channelMotionDown(-0.25, -1300);
     }
 
     public void centerDropShort(){
@@ -313,13 +378,16 @@ public class AutonomousMovement extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        forward(46.0);
-        turnLeft(92.0);
-        forward(25);
-        sleep(500);
-        strafeLeft(20);
-        auto.channelMotion(0.5);
-        sleep(2000);//1600 for longer distance auto
+        backward(42.0);
+        auto.purpleDrop1(-0.15);
+        sleep(550);
+        auto.purpleDrop1(0);
+        backward(9);
+        turnRight(94);
+        forward(26);
+        sleep(200);
+        strafeLeft(28);
+        auto.channelMotionEncoder(0.5, 1500);
         auto.channelZero();
         auto.servoPlace();
         sleep(3000);
@@ -329,9 +397,8 @@ public class AutonomousMovement extends LinearOpMode {
         auto.drop();
         sleep(1000);
         auto.servoZero();
-        sleep(3000);
-        auto.channelMotion(-0.25);
-        sleep(1200);
+        sleep(2800);
+        auto.channelMotionDown(-0.35, 1300);
         auto.channelZero();
 
     }
@@ -341,26 +408,26 @@ public class AutonomousMovement extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        backward(46.0);
-        turnLeft(93.5);
+        backward(36.0);
+        auto.purpleDrop1(-0.15);
+        sleep(550);
+        auto.purpleDrop1(0);
+        backward(8);
+        turnLeft(94);
         forward(25);
         sleep(500);
-        strafeRight(20);
-        auto.channelMotion(0.5);
-        sleep(2000);//1600 for longer distance auto
-        auto.channelZero();
+        strafeRight(25);
+        auto.channelMotionEncoder(0.5, 1500);
         auto.servoPlace();
         sleep(3000);
         auto.ForwardDistance(0.2);
 
-
         auto.drop();
+
         sleep(1000);
         auto.servoZero();
         sleep(3000);
-        auto.channelMotion(-0.35);
-        sleep(2000);
-        auto.channelZero();
+        auto.channelMotionDown(-0.35, 1300);
 
     }
 
@@ -369,17 +436,20 @@ public class AutonomousMovement extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        forward(25.0);
-        turnLeft(92);
-        forward(20);
-        sleep(1000);
-        forward(7);
-        strafeLeft(7);
-        auto.channelMotion(0.5);
-        sleep(2000);//1600 for longer distance auto
+        backward(23.0);
+        turnRight(94);
+        forward(3);
+        auto.purpleDrop1(-0.15);
+        sleep(550);
+        auto.purpleDrop1(0);
+        backward(3);
+        strafeRight(21);
+        forward(25);
+        strafeLeft(28.5);
+//        auto.channelMotion(0.5, 1000);
         auto.channelZero();
         auto.servoPlace();
-        sleep(3000);
+        sleep(3300);
         auto.ForwardDistance(0.2);
 
 
@@ -387,8 +457,7 @@ public class AutonomousMovement extends LinearOpMode {
         sleep(1000);
         auto.servoZero();
         sleep(3000);
-        auto.channelMotion(-0.25);
-        sleep(1200);
+//        auto.channelMotion(-0.25, 100);
         auto.channelZero();
 
     }
@@ -398,13 +467,17 @@ public class AutonomousMovement extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        backward(25.0);
-        turnRight(93.5);
+        backward(22.0);
+        turnRight(94);
+        forward(3);
+        auto.purpleDrop1(-0.15);
+        sleep(550);
+        auto.purpleDrop1(0);
+        backward(3);
         turnLeft(182.5);
         forward(25);
         strafeLeft(7);
-        auto.channelMotion(0.5);
-        sleep(1500);//1600 for longer distance auto
+        auto.channelMotionEncoder(0.5,1600);
         auto.channelZero();
         auto.servoPlace();
         sleep(3000);
@@ -415,8 +488,7 @@ public class AutonomousMovement extends LinearOpMode {
         sleep(1000);
         auto.servoZero();
         sleep(3000);
-        auto.channelMotion(-0.35);
-        sleep(2000);
+        auto.channelMotionDown(-0.25, -1300);
         auto.channelZero();
 
     }
@@ -425,21 +497,16 @@ public class AutonomousMovement extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
 
-
-
-
         auto.servoZero();//To be change if servo does not work in  auto code
-        backward(46);
-//        auto.purpleDrop(0.8);
-//        sleep(100);
-//        auto.outTakeStop();
-//        backward(4);
-        turnLeft(92.5);
-        forward(74.5);
-        strafeRight(21.5);
-        auto.channelMotion(0.7);
-
-        sleep(1000);
+        backward(37.5);
+        auto.purpleDrop1(-0.15);
+        sleep(550);
+        auto.purpleDrop1(0);
+        backward(8);
+        turnLeft(94);
+        forward(80);
+        strafeRight(27);
+        auto.channelMotionEncoder(0.5,1600);
         auto.channelZero();
         sleep(1000);
         auto.servoPlace();
@@ -450,8 +517,7 @@ public class AutonomousMovement extends LinearOpMode {
         sleep(1000);
         auto.servoZero();
         sleep(3000);
-        auto.channelMotion(-0.35);
-        sleep(2000);
+        auto.channelMotionDown(-0.25, -1300);
         auto.channelZero();
 
 
@@ -462,29 +528,30 @@ public class AutonomousMovement extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        backward(25.0);
-        turnLeft(93.5);
-//        turnLeft(180.0);
-        strafeLeft(21.0);
-        forward(73.5);
+        backward(24.0);
+        turnLeft(94);
+        forward(3.4);
+        auto.purpleDrop1(-0.15);
+        sleep(550);
+        auto.purpleDrop1(0);
+        backward(4.2);
+        turnLeft(94);
+        forward(25.4);
+        turnRight(94);
+        forward(78);
         sleep(500);
-//        auto.StrafeRightDistance(0.6);
-        strafeRight(25);
-        auto.channelMotion(0.5);
-        sleep(1600);
+        strafeRight(26);
+        auto.channelMotionEncoder(0.5,1600);
         auto.channelZero();
         auto.servoPlace();
         sleep(3000);
-//        forward(3.5);
-        auto.ForwardDistance(0.2);
-
+        auto.ForwardDistance(0.25);
         sleep(500);
         auto.drop();
         sleep(1000);
         auto.servoZero();
         sleep(3000);
-        auto.channelMotion(-0.35);
-        sleep(2000);
+        auto.channelMotionDown(-0.25, -1000);
         auto.channelZero();
 
     }
@@ -494,34 +561,48 @@ public class AutonomousMovement extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        backward(25.0);
-        turnRight(93.5);
-        turnLeft(182);
-        strafeLeft(21.0);
-        forward(73.5);
+        backward(24.0);
+        turnRight(94);
+        forward(3.2);
+        auto.purpleDrop1(-0.15);
+        sleep(550);
+        auto.purpleDrop1(0);
+        backward(4);
+        turnLeft(94);
+        backward(25);
+        turnLeft(91);
+        forward(78);
         sleep(500);
-//        auto.StrafeRightDistance(0.6);
-        strafeRight(14);
-        auto.channelMotion(0.5);
-        sleep(1600);
+        strafeRight(20);
+
+        auto.channelMotionEncoder(0.5,1600);
         auto.channelZero();
         auto.servoPlace();
         sleep(3000);
-//        forward(3.5);
-        auto.ForwardDistance(0.2);
-
+        auto.ForwardDistance(0.25);
         sleep(500);
         auto.drop();
         sleep(1000);
         auto.servoZero();
         sleep(3000);
-        auto.channelMotion(-0.35);
-        sleep(2000);
+        auto.channelMotionDown(-0.25, -1000);
         auto.channelZero();
 
     }
     @Override
     public void runOpMode() throws InterruptedException {
+
+//        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+//
+//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+//                "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+//
+//        // Use OpenCvCameraFactory class from FTC SDK to create camera instance
+//        controlHubCam = OpenCvCameraFactory.getInstance().createWebcam(
+//                hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+//        controlHubCam.setPipeline(auto.YellowBlobDetectionPipeline());
+//        controlHubCam.openCameraDevice();
+//        controlHubCam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
 
 
 //        boxLeft= hardwareMap.get(Servo.class,"boxLeft");
@@ -543,14 +624,14 @@ public class AutonomousMovement extends LinearOpMode {
 //        leftDrop();
 //        rightDrop();
 //        centerDrop();
-//        rightDropShort();
+ //       rightDropShort();
 //        centerDropShort();
 //        leftDropShort();
-//        centerDropRed();
+   //     centerDropRed();
 //        rightDropRed();
-//        leftDropRed();
 //        centerDropShortRed();
-//        rightDropShortRed();
-        leftDropShortRed();
+   //     rightDropShortRed();
+//        leftDropShortRed();
+            leftDropRed();
     }
 }

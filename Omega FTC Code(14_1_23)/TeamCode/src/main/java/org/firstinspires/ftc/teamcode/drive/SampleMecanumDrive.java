@@ -31,12 +31,26 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceRunner;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.imgproc.Moments;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,11 +76,23 @@ public class SampleMecanumDrive extends MecanumDrive {
     public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0, 0, 0);
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(6, 0, 0);
 
+    private OpenCvCamera controlHubCam;  // Use OpenCvCamera class from FTC SDK
+
     public static double LATERAL_MULTIPLIER = 1.56;
 
     public static double VX_WEIGHT = 1;
     public static double VY_WEIGHT = 1;
     public static double OMEGA_WEIGHT = 1;
+
+    double cX = 0;
+    double cY = 0;
+
+    public static final double objectWidthInRealWorldUnits = 4;  // Replace with the actual width of the object in real-world units
+    public static final double focalLength = 600;  // Replace with the focal length of the camera in pixels
+
+    private static final int CAMERA_WIDTH = 640; // width  of wanted camera resolution
+    private static final int CAMERA_HEIGHT = 480; // height of wanted camera resolution
+
 
     private TrajectorySequenceRunner trajectorySequenceRunner;
 
@@ -208,6 +234,8 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     private Servo boxLeft, boxRight;
     private Servo InnerGrab;
+
+    double width = 0;
     private List<DcMotorEx> motors;
 
     private IMU imu;
@@ -249,6 +277,21 @@ public class SampleMecanumDrive extends MecanumDrive {
         boxRight= hardwareMap.get(Servo.class,"boxRight");
         InnerGrab= hardwareMap.get(Servo.class,"innerGrab");
 
+
+
+//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+//                "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+//
+//        // Use OpenCvCameraFactory class from FTC SDK to create camera instance
+//        controlHubCam = OpenCvCameraFactory.getInstance().createWebcam(
+//                hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+//        controlHubCam.setPipeline(new YellowBlobDetectionPipeline());
+//        controlHubCam.openCameraDevice();
+//        controlHubCam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+
+
+
+
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
 
         for (DcMotorEx motor : motors) {
@@ -273,6 +316,10 @@ public class SampleMecanumDrive extends MecanumDrive {
         leftFront.setDirection(DcMotorEx.Direction.REVERSE); // add if needed
         leftRear.setDirection(DcMotorEx.Direction.REVERSE); // add if needed
         leftslider.setDirection(DcMotorEx.Direction.REVERSE); // add if needed
+        out_take.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        leftslider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightslider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         List<Integer> lastTrackingEncPositions = new ArrayList<>();
         List<Integer> lastTrackingEncVels = new ArrayList<>();
@@ -462,10 +509,66 @@ public class SampleMecanumDrive extends MecanumDrive {
         return new ProfileAccelerationConstraint(maxAccel);
     }
 
-    public void channelMotion(double power){
-        double set=power;
-        leftslider.setPower(set);
-        rightslider.setPower(set);
+    public void channelMotionEncoder(double power, int position){
+        int pos = position;
+        double pwr=power;
+
+//        telemetry.addData("Right pos = %d ", rightslider.getCurrentPosition());
+//        telemetry.addData("Left pos = %d ", leftslider.getCurrentPosition());
+//        telemetry.addLine("Hello");
+//        telemetry.update();
+        leftslider.setTargetPosition(pos);
+        rightslider.setTargetPosition(pos);
+        leftslider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightslider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while((leftslider.getCurrentPosition() <= leftslider.getTargetPosition()) && (rightslider.getCurrentPosition() <= rightslider.getTargetPosition())) {
+            leftslider.setPower(pwr);
+            rightslider.setPower(pwr);
+        }
+
+        leftslider.setPower(0);
+        rightslider.setPower(0);
+
+
+    }
+
+    public void channelMotionTimer(double power){
+//        int pos = position;
+        double pwr=power;
+
+        //leftslider.setTargetPosition(pos);
+        //rightslider.setTargetPosition(pos);
+        //leftslider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //rightslider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            leftslider.setPower(pwr);
+            rightslider.setPower(pwr);
+
+
+    }
+
+
+    public void channelMotionDown(double power, int position){
+        int pos = position;
+        double pwr=power;
+
+        leftslider.setTargetPosition(pos);
+        rightslider.setTargetPosition(pos);
+        leftslider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightslider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while((leftslider.getCurrentPosition() >= leftslider.getTargetPosition()) && (rightslider.getCurrentPosition() >= rightslider.getTargetPosition())) {
+
+            leftslider.setPower(pwr);
+            rightslider.setPower(pwr);
+
+        }
+
+        leftslider.setPower(0);
+        rightslider.setPower(0);
+
+
     }
 
     public void ForwardDistance(double power){
@@ -533,7 +636,19 @@ public class SampleMecanumDrive extends MecanumDrive {
         rightslider.setPower(0.1);
     }
 
-    public void purpleDrop(double power){
+    public void purpleDrop(double power, int position){
+        out_take.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        out_take.setTargetPositionTolerance(10);
+        double pwr = power;
+        int target_position = position;
+        out_take.setTargetPosition(target_position);
+        out_take.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        while(out_take.isBusy()) {
+            out_take.setPower(-pwr);
+        }
+        out_take.setPower(0);
+    }
+    public void purpleDrop1(double power){
         double pwr = power;
         out_take.setPower(pwr);
     }
@@ -550,8 +665,99 @@ public class SampleMecanumDrive extends MecanumDrive {
         InnerGrab.setPosition(0.32);
     }
     public  void servoZero(){
-        boxLeft.setPosition(0.02);
-        boxRight.setPosition(0.98);
+        boxLeft.setPosition(0);
+        boxRight.setPosition(1);
         InnerGrab.setPosition(0.75);
     }
+
+    class YellowBlobDetectionPipeline extends OpenCvPipeline {
+        @Override
+        public Mat processFrame(Mat input) {
+            // Preprocess the frame to detect yellow regions
+            Mat yellowMask = preprocessFrame(input);
+
+            // Find contours of the detected yellow regions
+            List<MatOfPoint> contours = new ArrayList<>();
+            Mat hierarchy = new Mat();
+            Imgproc.findContours(yellowMask, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+
+            // Find the largest yellow contour (blob)
+            MatOfPoint largestContour = findLargestContour(contours);
+
+            if (largestContour != null) {
+                // Draw a red outline around the largest detected object
+                Imgproc.drawContours(input, contours, contours.indexOf(largestContour), new Scalar(255, 0, 0), 2);
+                // Calculate the width of the bounding box
+                width = calculateWidth(largestContour);
+
+                // Display the width next to the label
+                String widthLabel = "Width: " + (int) width + " pixels";
+                Imgproc.putText(input, widthLabel, new Point(cX + 10, cY + 20), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(0, 255, 0), 2);
+                //Display the Distance
+                String distanceLabel = "Distance: " + String.format("%.2f", getDistance(width)) + " inches";
+                Imgproc.putText(input, distanceLabel, new Point(cX + 10, cY + 60), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(0, 255, 0), 2);
+                // Calculate the centroid of the largest contour
+                Moments moments = Imgproc.moments(largestContour);
+                cX = moments.get_m10() / moments.get_m00();
+                cY = moments.get_m01() / moments.get_m00();
+
+                // Draw a dot at the centroid
+                String label = "(" + (int) cX + ", " + (int) cY + ")";
+                Imgproc.putText(input, label, new Point(cX + 10, cY), Imgproc.FONT_HERSHEY_COMPLEX, 0.5, new Scalar(0, 255, 0), 2);
+                Imgproc.circle(input, new Point(cX, cY), 5, new Scalar(0, 255, 0), -1);
+
+            }
+
+            return input;
+        }
+    }
+
+        private Mat preprocessFrame(Mat frame) {
+            Mat hsvFrame = new Mat();
+            Imgproc.cvtColor(frame, hsvFrame, Imgproc.COLOR_BGR2HSV);
+
+            Scalar lowerYellow = new Scalar(0, 50, 70);
+            Scalar upperYellow = new Scalar(60, 255, 255);
+            //Hue 0-60 for blue
+            //Hue 60-90 for green
+            //Hue 100-130 for red
+
+
+            Mat yellowMask = new Mat();
+            Core.inRange(hsvFrame, lowerYellow, upperYellow, yellowMask);
+
+            Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(5, 5));
+            Imgproc.morphologyEx(yellowMask, yellowMask, Imgproc.MORPH_OPEN, kernel);
+            Imgproc.morphologyEx(yellowMask, yellowMask, Imgproc.MORPH_CLOSE, kernel);
+
+            return yellowMask;
+        }
+
+    private MatOfPoint findLargestContour(List<MatOfPoint> contours) {
+        double maxArea = 0;
+        MatOfPoint largestContour = null;
+
+        for (MatOfPoint contour : contours) {
+            double area = Imgproc.contourArea(contour);
+            if (area > maxArea) {
+                maxArea = area;
+                largestContour = contour;
+            }
+        }
+
+        return largestContour;
+    }
+
+    private double calculateWidth(MatOfPoint contour) {
+        Rect boundingRect = Imgproc.boundingRect(contour);
+        return boundingRect.width;
+    }
+
+    private static double getDistance(double width){
+        double distance = (objectWidthInRealWorldUnits * focalLength) / width;
+        return distance;
+    }
+
+
+
 }
