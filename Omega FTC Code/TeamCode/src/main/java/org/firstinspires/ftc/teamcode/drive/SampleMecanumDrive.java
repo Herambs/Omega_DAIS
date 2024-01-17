@@ -570,11 +570,20 @@ public class SampleMecanumDrive extends MecanumDrive {
 
 
     }
+    public void channelDownProtection() {
+
+        while(boxRight.getPosition() > 0.7){
+
+        }
+        channelMotionDown(-0.5, 0);
+
+    }
+
 
     public void ForwardDistance(double power){
         double D = dsensor.getDistance(DistanceUnit.CM);
         double set=power;
-        while(D >= 17) { //D = 21.5 for longer path
+        while(D >= 18) { //D = 21.5 for longer path
             D = dsensor.getDistance(DistanceUnit.CM);
             rightFront.setPower(set);
             rightRear.setPower(set);

@@ -37,6 +37,8 @@ public class BlueLong extends LinearOpMode {
 
     double width = 0;
 
+    double left = 0, right = 0, center = 0;
+
     private double backwardDistance=0;
 
     private double rightAngle=0;
@@ -141,8 +143,8 @@ public class BlueLong extends LinearOpMode {
         Mat hsvFrame = new Mat();
         Imgproc.cvtColor(frame, hsvFrame, Imgproc.COLOR_BGR2HSV);
 
-        Scalar lowerYellow = new Scalar(0, 50, 70);
-        Scalar upperYellow = new Scalar(60, 255, 255);
+        Scalar lowerYellow = new Scalar(100, 50, 70);
+        Scalar upperYellow = new Scalar(130, 255, 255);
         //Hue 0-60 for blue
         //Hue 60-90 for green
         //Hue 100-130 for red
@@ -320,15 +322,16 @@ public class BlueLong extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        backward(39.8);
-        auto.purpleDrop1(-0.15);
+        backward(44);
+        auto.purpleDrop1(-0.35);
         sleep(550);
         auto.purpleDrop1(0);
-        backward(5);
-        turnRight(94);
-        forward(72);
+        backward(6);
+        sleep(5000);
+        turnRight(94.4);
+        forward(73);
         sleep(200);
-        strafeLeft(22);
+        strafeLeft(20);
         auto.channelMotionEncoder(0.5, 1500);
         auto.servoPlace();
         sleep(1000);
@@ -338,7 +341,8 @@ public class BlueLong extends LinearOpMode {
         auto.drop();
         sleep(1000);
         auto.servoZero();
-        sleep(1000);
+        sleep(1200);
+
         auto.channelMotionDown(-0.5, 0);
 
 
@@ -355,19 +359,20 @@ public class BlueLong extends LinearOpMode {
 
 
         auto.servoZero();
-        backward(22);
-        turnRight(94);
+        backward(25.5);
+        turnRight(94.5);
         forward(3.2);
-        auto.purpleDrop1(-0.15);
+        auto.purpleDrop1(-0.35);
         sleep(550);
         auto.purpleDrop1(0);
-        backward(3.7);
+        sleep(5000);
+        backward(4.7);
         turnLeft(94);
-        backward(21.5);
+        backward(22.5);
         turnRight(94);
-        forward(73.5);
+        forward(75);
         sleep(100);
-        strafeLeft(28.5);
+        strafeLeft(25.5);
         auto.channelMotionEncoder(0.5, 1500);
         auto.servoPlace();
         sleep(1000);
@@ -376,7 +381,7 @@ public class BlueLong extends LinearOpMode {
         auto.drop();
         sleep(1000);
         auto.servoZero();
-        sleep(1000);
+        sleep(1200);
         auto.channelMotionDown(-0.5, 0);
 
 
@@ -385,20 +390,22 @@ public class BlueLong extends LinearOpMode {
     public void rightDrop(){
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-        backward(22.5);
-        turnLeft(93);
-        forward(3);
-        auto.purpleDrop1(-0.15);
-        sleep(550);
+        auto.servoZero();
+        backward(25.5);
+        turnLeft(94.5);
+        forward(3.4);
+        auto.purpleDrop1(-0.35);
+        sleep(540);
         auto.purpleDrop1(0);
-        backward(3.5);
+        backward(4.2);
+        sleep(5000);
         turnRight(94);
-        backward(21.5);
-        turnRight(93.5);
-        forward(80);
+        backward(22.5);
+        turnRight(95);
+        forward(75);
 
         sleep(100);
-        strafeLeft(18.5);
+        strafeLeft(14.5);
        auto.channelMotionEncoder(0.5,1500);
         auto.servoPlace();
         sleep(1000);
@@ -407,281 +414,16 @@ public class BlueLong extends LinearOpMode {
         auto.drop();
         sleep(1000);
         auto.servoZero();
-        sleep(1000);
+        sleep(1200);
         auto.channelMotionDown(-0.5, 0);
 
     }
-
-    public void rightDropShort(){
-
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-        auto.servoZero();
-        backward(23.0);
-        turnLeft(94.0);
-        forward(4);
-        auto.purpleDrop1(-0.15);
-        sleep(550);
-        auto.purpleDrop1(0);
-        backward(4);
-
-        turnRight(183.0);
-        forward(25);
-        sleep(100);
-        strafeRight(4);
-        auto.channelMotionEncoder(0.5, 1500);
-        auto.servoPlace();
-        sleep(1000);
-        auto.ForwardDistance(0.2);
-
-
-        auto.drop();
-        sleep(1000);
-        auto.servoZero();
-        sleep(1000);
-        auto.channelMotionDown(-0.5, 0);
-
-    }
-
-    public void rightDropShortRed(){
-
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-        auto.servoZero();
-        backward(23.0);
-        turnLeft(94);
-        forward(2.5);
-        auto.purpleDrop1(-0.15);
-        sleep(550);
-        auto.purpleDrop1(0);
-        backward(3);
-        strafeLeft(21.0);
-        sleep(100);
-        forward(25);
-        strafeRight(27);
-        auto.channelMotionEncoder(0.5,1500);
-        auto.servoPlace();
-        sleep(1000);
-        auto.ForwardDistance(0.2);
-
-
-        auto.drop();
-        sleep(1000);
-        auto.servoZero();
-        sleep(1000);
-        auto.channelMotionDown(-0.5, 0);
-    }
-
-    public void centerDropShort(){
-
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-        auto.servoZero();
-        backward(42.0);
-        auto.purpleDrop1(-0.15);
-        sleep(550);
-        auto.purpleDrop1(0);
-        backward(9);
-        turnRight(94);
-        forward(26);
-        sleep(100);
-        strafeLeft(28);
-        auto.channelMotionEncoder(0.5, 1500);
-        auto.servoPlace();
-        sleep(1000);
-        auto.ForwardDistance(0.2);
-
-
-        auto.drop();
-        sleep(1000);
-        auto.servoZero();
-        sleep(1000);
-        auto.channelMotionDown(-0.5, 0);
-
-    }
-
-    public void centerDropShortRed(){
-
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-        auto.servoZero();
-        backward(36.0);
-        auto.purpleDrop1(-0.15);
-        sleep(550);
-        auto.purpleDrop1(0);
-        backward(8);
-        turnLeft(94);
-        forward(25);
-        sleep(100);
-        strafeRight(25);
-        auto.channelMotionEncoder(0.5, 1500);
-        auto.servoPlace();
-        sleep(1000);
-        auto.ForwardDistance(0.2);
-
-        auto.drop();
-
-        sleep(1000);
-        auto.servoZero();
-        sleep(1000);
-        auto.channelMotionDown(-0.5, 0);
-
-    }
-
-    public void leftDropShort(){
-
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-        auto.servoZero();
-        backward(23.0);
-        turnRight(94);
-        forward(3);
-        auto.purpleDrop1(-0.15);
-        sleep(550);
-        auto.purpleDrop1(0);
-        backward(3);
-        strafeRight(21);
-        forward(25);
-        strafeLeft(28.5);
-        auto.channelMotionEncoder(0.5, 1500);
-        auto.servoPlace();
-        sleep(1000);
-        auto.ForwardDistance(0.2);
-
-
-        auto.drop();
-        sleep(1000);
-        auto.servoZero();
-        sleep(1000);
-        auto.channelMotionDown(-0.5, 0);
-
-    }
-
-    public void leftDropShortRed(){
-
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-        auto.servoZero();
-        backward(22.0);
-        turnRight(94);
-        forward(3);
-        auto.purpleDrop1(-0.15);
-        sleep(550);
-        auto.purpleDrop1(0);
-        backward(3);
-        turnLeft(182.5);
-        forward(25);
-        strafeLeft(7);
-        auto.channelMotionEncoder(0.5,1500);
-        auto.servoPlace();
-        sleep(1000);
-        auto.ForwardDistance(0.2);
-
-
-        auto.drop();
-        sleep(1000);
-        auto.servoZero();
-        sleep(1000);
-        auto.channelMotionDown(-0.5, 0);
-
-    }
-
-    public void centerDropRed(){
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-
-        auto.servoZero();//To be change if servo does not work in  auto code
-        backward(37.5);
-        auto.purpleDrop1(-0.15);
-        sleep(550);
-        auto.purpleDrop1(0);
-        backward(8);
-        turnLeft(94);
-        forward(80);
-        strafeRight(27);
-        auto.channelMotionEncoder(0.5,1500);
-        auto.servoPlace();
-        sleep(1000);
-        auto.ForwardDistance(0.2);
-        sleep(100);
-        auto.drop();
-        sleep(1000);
-        auto.servoZero();
-        sleep(1000);
-        auto.channelMotionDown(-0.5, 0);
-
-
-    }
-
-    public void rightDropRed(){
-
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-        auto.servoZero();
-        backward(24.0);
-        turnLeft(94);
-        forward(3.4);
-        auto.purpleDrop1(-0.15);
-        sleep(550);
-        auto.purpleDrop1(0);
-        backward(4.2);
-        turnRight(94);
-        backward(25.4);
-        turnLeft(94);
-        forward(78);
-        sleep(100);
-        strafeRight(26);
-        auto.channelMotionEncoder(0.5,1500);
-        auto.servoPlace();
-        sleep(1000);
-        auto.ForwardDistance(0.25);
-        auto.drop();
-        sleep(1000);
-        auto.servoZero();
-        sleep(1000);
-        auto.channelMotionDown(-0.5, 0);
-
-    }
-
-    public void leftDropRed(){
-
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-        auto.servoZero();
-        backward(24.0);
-        turnRight(94);
-        forward(3.2);
-        auto.purpleDrop1(-0.15);
-        sleep(550);
-        auto.purpleDrop1(0);
-        backward(4);
-        turnLeft(94);
-        backward(25);
-        turnLeft(91);
-        forward(78);
-        sleep(100);
-        strafeRight(20);
-
-        auto.channelMotionEncoder(0.5,1500);
-        auto.servoPlace();
-        sleep(1000);
-        auto.ForwardDistance(0.25);
-        auto.drop();
-        sleep(1000);
-        auto.servoZero();
-        sleep(1000);
-        auto.channelMotionDown(-0.5, 0);
-
-    }
-
-
-
         @Override
     public void runOpMode() throws InterruptedException {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+       /* int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 
         // Use OpenCvCameraFactory class from FTC SDK to create camera instance
@@ -693,32 +435,52 @@ public class BlueLong extends LinearOpMode {
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
-        FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);
+        FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);*/
 
         waitForStart();
 
-            telemetry.addData("Coordinate", "(" + (int) cX + ", " + (int) cY + ")");
-            telemetry.addData("Distance in Inch", (getDistance(width)));
-            telemetry.update();
+            sleep(1000);
+//            telemetry.addData("Coordinate", "(" + (int) cX + ", " + (int) cY + ")");
+//            telemetry.addData("Distance in Inch", (getDistance(width)));
+//            telemetry.update();
 
-            if(cX >= 50 && cX <= 200){
-                telemetry.addLine("LEFT");
-            } else if (cX >= 400 && cX <= 600) {
-                telemetry.addLine("RIGHT");
-            } else if (cX >= 200 && cX <= 400) {
-                telemetry.addLine("CENTER");
-            }
+//            if(cX >= 50 && cX <= 600){
+//                center = 1;
+//                telemetry.addLine("CENTER");
+//                telemetry.update();
+//                sleep(2000);
+//                controlHubCam.stopStreaming();
+//                centerDrop();
+//            } else if (cX >= 400 && cX <= 600) {
+//                right = 1;
+//                telemetry.addLine("RIGHT");
+//                telemetry.update();
+//                sleep(2000);
+//                controlHubCam.stopStreaming();
+////                rightDrop();
+//            } else {
+//                left = 1;
+//                telemetry.addLine("LEFT");
+//                telemetry.update();
+//                sleep(2000);
+//                controlHubCam.stopStreaming();
+////                leftDrop();
+//            }
 
     // Release resources
-        controlHubCam.stopStreaming();
+
 
         if(isStopRequested()){
             return;
         }
 
-        centerDrop();  // Spike Location center
-//        leftDrop();
-//        rightDrop();
+
+//           centerDrop();  // Spike Location center
+
+            leftDrop();
+
+      //    rightDrop();
+
 
     }
 }
