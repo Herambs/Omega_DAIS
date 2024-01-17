@@ -322,15 +322,16 @@ public class RedLong extends LinearOpMode {
 
 
         auto.servoZero();//To be change if servo does not work in  auto code
-        backward(45);
+        backward(44);
         auto.purpleDrop1(-0.35);
         sleep(550);
         auto.purpleDrop1(0);
         sleep(5000);
         backward(6);
+        sleep(4000);
         turnLeft(94.5);
         forward(75);
-        strafeRight(23.5);
+        strafeRight(23.8);
         auto.channelMotionEncoder(0.5,1500);
         auto.servoPlace();
         sleep(1000);
@@ -356,6 +357,7 @@ public class RedLong extends LinearOpMode {
         auto.purpleDrop1(-0.35);
         sleep(550);
         auto.purpleDrop1(0);
+        sleep(4000);
         backward(4.2);
         turnRight(94.5);
         backward(21);
@@ -387,12 +389,13 @@ public class RedLong extends LinearOpMode {
         sleep(550);
         auto.purpleDrop1(0);
         backward(4.2);
+        sleep(4000);
         turnLeft(94.5);
         backward(22);
         turnLeft(94.5);
         forward(76);
         sleep(100);
-        strafeRight(15);
+        strafeRight(16.5);
 
         auto.channelMotionEncoder(0.5,1500);
         auto.servoPlace();
@@ -444,12 +447,12 @@ public class RedLong extends LinearOpMode {
 //        // Release resources
 //        controlHubCam.stopStreaming();
 
-        if(isStopRequested()){
+        if (isStopRequested()) {
             return;
         }
 
-//             centerDropRed();
-//        rightDropRed();
-            leftDropRed();
+        //    centerDropRed();
+        //rightDropRed();
+        // leftDropRed();
     }
 }

@@ -356,7 +356,7 @@ public class BlueShort extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        backward(46.0);
+        backward(44.0);
         auto.purpleDrop1(-0.35);
         sleep(550);
         auto.purpleDrop1(0);
@@ -461,7 +461,7 @@ public class BlueShort extends LinearOpMode {
         }
 
 //          rightDropShort();
-//        centerDropShort();
+     //   centerDropShort();
         leftDropShort();
     }
 }

@@ -322,12 +322,12 @@ public class BlueLong extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        backward(44);
+        backward(43);
         auto.purpleDrop1(-0.35);
         sleep(550);
         auto.purpleDrop1(0);
         backward(6);
-        sleep(5000);
+        sleep(4000);
         turnRight(94.4);
         forward(73);
         sleep(200);
@@ -344,7 +344,6 @@ public class BlueLong extends LinearOpMode {
         sleep(1200);
 
         auto.channelMotionDown(-0.5, 0);
-
 
     }
 
@@ -365,14 +364,17 @@ public class BlueLong extends LinearOpMode {
         auto.purpleDrop1(-0.35);
         sleep(550);
         auto.purpleDrop1(0);
-        sleep(5000);
+        sleep(4000);
         backward(4.7);
         turnLeft(94);
         backward(22.5);
         turnRight(94);
         forward(75);
         sleep(100);
-        strafeLeft(25.5);
+        strafeLeft(24.5);
+        /*turnLeft(94);
+        forward(24);
+        turnRight(94);*/
         auto.channelMotionEncoder(0.5, 1500);
         auto.servoPlace();
         sleep(1000);
@@ -398,7 +400,7 @@ public class BlueLong extends LinearOpMode {
         sleep(540);
         auto.purpleDrop1(0);
         backward(4.2);
-        sleep(5000);
+        sleep(4000);
         turnRight(94);
         backward(22.5);
         turnRight(95);
@@ -406,7 +408,7 @@ public class BlueLong extends LinearOpMode {
 
         sleep(100);
         strafeLeft(14.5);
-       auto.channelMotionEncoder(0.5,1500);
+        auto.channelMotionEncoder(0.5,1500);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
@@ -475,11 +477,11 @@ public class BlueLong extends LinearOpMode {
         }
 
 
-//           centerDrop();  // Spike Location center
+          centerDrop();  // Spike Location center
 
-            leftDrop();
+    //        leftDrop();
 
-      //    rightDrop();
+     //     rightDrop();
 
 
     }
