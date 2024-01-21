@@ -264,6 +264,7 @@ public class RedShort extends LinearOpMode {
 
     public void turnRight(double turnAngle){
 
+
         SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
 
         rightAngle=turnAngle;
@@ -323,19 +324,19 @@ public class RedShort extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        backward(25.5);
+        backward(27);
         turnLeft(94.5);
-        forward(4);
+        forward(3);
         auto.purpleDrop1(-0.35);
         sleep(550);
         auto.purpleDrop1(0);
-        backward(4.5);
+        backward(4);
         turnRight(94.5);
         backward(21);
         turnLeft(94.5);
         sleep(100);
-        forward(30);
-        strafeRight(27);
+        forward(29);
+        strafeRight(25.5);
         auto.channelMotionEncoder(0.5,1500);
         auto.servoPlace();
         sleep(1000);
@@ -359,15 +360,15 @@ public class RedShort extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        backward(47.0);
+        backward(39);
         auto.purpleDrop1(-0.35);
         sleep(550);
         auto.purpleDrop1(0);
         backward(6);
         turnLeft(94.5);
-        forward(28);
+        forward(28.5);
         sleep(100);
-        strafeRight(26);
+        strafeRight(20);
         auto.channelMotionEncoder(0.5, 1500);
         auto.servoPlace();
         sleep(1000);
@@ -391,7 +392,7 @@ public class RedShort extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
         auto.servoZero();
-        backward(25.5);
+        backward(28);
         turnRight(94.5);
         forward(3.2);
         auto.purpleDrop1(-0.35);
@@ -400,7 +401,7 @@ public class RedShort extends LinearOpMode {
         backward(4.4);
         turnLeft(183.5);
         forward(28);
-        strafeLeft(7);
+        strafeLeft(4.5);
         auto.channelMotionEncoder(0.5,1500);
         auto.servoPlace();
         sleep(1000);
@@ -476,9 +477,9 @@ public class RedShort extends LinearOpMode {
 //            centerDropShortRed();
 //        }
 
-//        rightDropShortRed();
-        leftDropShortRed();
-//        centerDropShortRed();
+  //      rightDropShortRed();
+ //       leftDropShortRed();
+        centerDropShortRed();
 
 
     }

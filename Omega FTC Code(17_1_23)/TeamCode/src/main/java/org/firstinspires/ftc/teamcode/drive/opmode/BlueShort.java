@@ -461,7 +461,7 @@ public class BlueShort extends LinearOpMode {
         }
 
 //          rightDropShort();
-     //   centerDropShort();
-        leftDropShort();
+      centerDropShort();
+       // leftDropShort();
     }
 }

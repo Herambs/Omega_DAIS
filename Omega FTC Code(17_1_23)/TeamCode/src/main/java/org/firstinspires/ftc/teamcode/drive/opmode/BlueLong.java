@@ -331,7 +331,10 @@ public class BlueLong extends LinearOpMode {
         turnRight(94.4);
         forward(73);
         sleep(200);
-        strafeLeft(20);
+        turnLeft(94.5);
+        forward(20);
+        turnRight(94.5);
+     // strafeLeft(20);
         auto.channelMotionEncoder(0.5, 1500);
         auto.servoPlace();
         sleep(1000);
@@ -371,7 +374,10 @@ public class BlueLong extends LinearOpMode {
         turnRight(94);
         forward(75);
         sleep(100);
-        strafeLeft(24.5);
+        turnLeft(94.5);
+        forward(24.5);
+        turnRight(94.5);
+      //  strafeLeft(24.5);
         /*turnLeft(94);
         forward(24);
         turnRight(94);*/
@@ -407,7 +413,10 @@ public class BlueLong extends LinearOpMode {
         forward(75);
 
         sleep(100);
-        strafeLeft(14.5);
+        turnLeft(94.5);
+        forward(14.5);
+        turnRight(94.5);
+       // strafeLeft(14.5);
         auto.channelMotionEncoder(0.5,1500);
         auto.servoPlace();
         sleep(1000);

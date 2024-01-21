@@ -331,7 +331,10 @@ public class RedLong extends LinearOpMode {
         sleep(4000);
         turnLeft(94.5);
         forward(75);
-        strafeRight(23.8);
+        turnRight(94.5);
+        forward(23.8);
+        turnLeft(94.5);
+        //strafeRight(23.8);
         auto.channelMotionEncoder(0.5,1500);
         auto.servoPlace();
         sleep(1000);
@@ -364,7 +367,10 @@ public class RedLong extends LinearOpMode {
         turnLeft(94.5);
         forward(76);
         sleep(100);
-        strafeRight(27);
+        turnRight(94.5);
+        forward(29.5);
+        turnLeft(94.5);
+        //strafeRight(27);
         auto.channelMotionEncoder(0.5,1500);
         auto.servoPlace();
         sleep(1000);
@@ -395,7 +401,10 @@ public class RedLong extends LinearOpMode {
         turnLeft(94.5);
         forward(76);
         sleep(100);
-        strafeRight(16.5);
+        turnRight(94.5);
+        forward(17.5);
+        turnLeft(94.5);
+        //strafeRight(16.5);
 
         auto.channelMotionEncoder(0.5,1500);
         auto.servoPlace();
@@ -451,8 +460,8 @@ public class RedLong extends LinearOpMode {
             return;
         }
 
-        //    centerDropRed();
-        //rightDropRed();
-        // leftDropRed();
+            //centerDropRed();
+      //  rightDropRed();
+        leftDropRed();
     }
 }
