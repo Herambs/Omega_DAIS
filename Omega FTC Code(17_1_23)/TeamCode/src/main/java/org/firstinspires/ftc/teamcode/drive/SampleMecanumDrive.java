@@ -233,7 +233,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     };
 
     private Servo boxLeft, boxRight;
-    private Servo InnerGrab;
+    private Servo InnerGrab, purple_drop;
 
     double width = 0;
     private List<DcMotorEx> motors;
@@ -276,6 +276,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         boxLeft= hardwareMap.get(Servo.class,"boxLeft");
         boxRight= hardwareMap.get(Servo.class,"boxRight");
         InnerGrab= hardwareMap.get(Servo.class,"innerGrab");
+        purple_drop = hardwareMap.get(Servo.class,"purple_pixel");
 
 
 
@@ -657,9 +658,12 @@ public class SampleMecanumDrive extends MecanumDrive {
         }
         out_take.setPower(0);
     }
-    public void purpleDrop1(double power){
-        double pwr = power;
-        out_take.setPower(pwr);
+    public void purpleDrop1(double position){
+
+        double pos = position;
+        purple_drop.setPosition(pos);
+//        double pwr = power;
+//        out_take.setPower(pwr);
     }
 
     public void outTakeStop(){
@@ -677,6 +681,7 @@ public class SampleMecanumDrive extends MecanumDrive {
         boxLeft.setPosition(0);
         boxRight.setPosition(1);
         InnerGrab.setPosition(0.75);
+        purple_drop.setPosition(0.5);
     }
 
     class YellowBlobDetectionPipeline extends OpenCvPipeline {

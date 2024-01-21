@@ -33,21 +33,21 @@ import java.util.List;
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "RedLong", group = "Autonomous")
 public class RedLong extends LinearOpMode {
 
-    private double forwardDistance=0;
+    private double forwardDistance = 0;
 
     double width = 0;
 
-    private double backwardDistance=0;
+    private double backwardDistance = 0;
 
-    private double rightAngle=0;
+    private double rightAngle = 0;
 
-    private double leftAngle=0;
+    private double leftAngle = 0;
 
-    private double strafeRightDistance=0;
+    private double strafeRightDistance = 0;
 
-    private double strafeLeftDistance=0;
+    private double strafeLeftDistance = 0;
 
-    private double countsPerInch=1917.0;
+    private double countsPerInch = 1917.0;
 
     private Servo boxLeft, boxRight;
     private Servo InnerGrab;
@@ -178,16 +178,15 @@ public class RedLong extends LinearOpMode {
         return boundingRect.width;
     }
 
-    private static double getDistance(double width){
+    private static double getDistance(double width) {
         double distance = (objectWidthInRealWorldUnits * focalLength) / width;
         return distance;
     }
 
 
+    public void lineToHeading(double x, double y, double heading) {
 
-    public void lineToHeading(double x, double y, double heading){
-
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         double x1 = x;
         double y1 = y;
@@ -205,9 +204,9 @@ public class RedLong extends LinearOpMode {
 
     }
 
-    public void strafeHeading(double x, double y){
+    public void strafeHeading(double x, double y) {
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         double x1 = x;
         double y1 = y;
@@ -223,11 +222,12 @@ public class RedLong extends LinearOpMode {
         drive.followTrajectory(lineToLinearHeading);
 
     }
-    public void forward(double distance){
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+    public void forward(double distance) {
 
-        forwardDistance=distance;
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+
+        forwardDistance = distance;
 
         // Define the starting pose
         Pose2d startPose = new Pose2d();
@@ -242,11 +242,11 @@ public class RedLong extends LinearOpMode {
     }
 
 
-    public void backward(double distance){
+    public void backward(double distance) {
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        backwardDistance=distance;
+        backwardDistance = distance;
 
         // Define the starting pose
         Pose2d startPose = new Pose2d();
@@ -260,30 +260,30 @@ public class RedLong extends LinearOpMode {
 
     }
 
-    public void turnRight(double turnAngle){
+    public void turnRight(double turnAngle) {
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        rightAngle=turnAngle;
+        rightAngle = turnAngle;
 
         drive.turn(Math.toRadians(-rightAngle));
     }
 
-    public void turnLeft(double turnAngle){
+    public void turnLeft(double turnAngle) {
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        leftAngle=turnAngle;
+        leftAngle = turnAngle;
 
         drive.turn(Math.toRadians(leftAngle));
 
     }
 
-    public void strafeRight(double strafeRightDis){
+    public void strafeRight(double strafeRightDis) {
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        strafeRightDistance=strafeRightDis;
+        strafeRightDistance = strafeRightDis;
 
         // Define the starting pose
         Pose2d startPose = new Pose2d();
@@ -297,11 +297,11 @@ public class RedLong extends LinearOpMode {
 
     }
 
-    public void strafeLeft(double strafeLeftDis){
+    public void strafeLeft(double strafeLeftDis) {
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        strafeLeftDistance=strafeLeftDis;
+        strafeLeftDistance = strafeLeftDis;
 
         // Define the starting pose
         Pose2d startPose = new Pose2d();
@@ -316,26 +316,26 @@ public class RedLong extends LinearOpMode {
     }
 
 
+    public void centerDropRed() {
+        SampleMecanumDrive auto = new SampleMecanumDrive(hardwareMap);
 
-    public void centerDropRed(){
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
-
-        auto.servoZero();//To be change if servo does not work in  auto code
-        backward(44);
-        auto.purpleDrop1(-0.35);
-        sleep(550);
-        auto.purpleDrop1(0);
-        sleep(5000);
-        backward(6);
+//        auto.servoZero();//To be change if servo does not work in  auto code
+        backward(43);
+        auto.purpleDrop1(1);
+//        auto.purpleDrop1(-0.35);
+//        sleep(550);
+//        auto.purpleDrop1(0);
         sleep(4000);
+        backward(6);
+        //sleep(4000);
         turnLeft(94.5);
         forward(75);
         turnRight(94.5);
-        forward(23.8);
+        forward(25);
         turnLeft(94.5);
         //strafeRight(23.8);
-        auto.channelMotionEncoder(0.5,1500);
+        auto.channelMotionEncoder(0.5, 1500);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
@@ -349,29 +349,30 @@ public class RedLong extends LinearOpMode {
 
     }
 
-    public void rightDropRed(){
+    public void rightDropRed() {
 
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive auto = new SampleMecanumDrive(hardwareMap);
 
-        auto.servoZero();
-        backward(26.5);
+//        auto.servoZero();
+        backward(26.7);
         turnLeft(94.5);
-        forward(3.4);
-        auto.purpleDrop1(-0.35);
-        sleep(550);
-        auto.purpleDrop1(0);
+        forward(1.8);
+        auto.purpleDrop1(1);
+//        sleep(550);
+//        auto.purpleDrop1(0);
         sleep(4000);
-        backward(4.2);
+        backward(3.2);
         turnRight(94.5);
-        backward(21);
+
+        backward(18);
         turnLeft(94.5);
-        forward(76);
+        forward(73);
         sleep(100);
-        turnRight(94.5);
+        turnRight(95.5);
         forward(29.5);
         turnLeft(94.5);
         //strafeRight(27);
-        auto.channelMotionEncoder(0.5,1500);
+        auto.channelMotionEncoder(0.5, 1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.25);
@@ -383,30 +384,32 @@ public class RedLong extends LinearOpMode {
 
     }
 
-    public void leftDropRed(){
+    public void leftDropRed() {
 
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive auto = new SampleMecanumDrive(hardwareMap);
 
-        auto.servoZero();
+//        auto.servoZero();
         backward(26.5);
         turnRight(94.5);
-        forward(3.2);
-        auto.purpleDrop1(-0.35);
-        sleep(550);
-        auto.purpleDrop1(0);
-        backward(4.2);
+        forward(1.5);
+        auto.purpleDrop1(1);
+//        auto.purpleDrop1(-0.35);
+//        sleep(550);
+//        auto.purpleDrop1(0);
         sleep(4000);
+        backward(2.5);
+        //sleep(4000);
         turnLeft(94.5);
         backward(22);
         turnLeft(94.5);
-        forward(76);
+        forward(73);
         sleep(100);
         turnRight(94.5);
-        forward(17.5);
-        turnLeft(94.5);
+        forward(17);
+        turnLeft(95.5);
         //strafeRight(16.5);
 
-        auto.channelMotionEncoder(0.5,1500);
+        auto.channelMotionEncoder(0.5, 1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.25);
@@ -417,13 +420,13 @@ public class RedLong extends LinearOpMode {
         auto.channelMotionDown(-0.5, 0);
 
     }
-
 
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-//        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive auto = new SampleMecanumDrive(hardwareMap);
+        auto.servoZero();
 //
 //        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
 //                "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -460,8 +463,10 @@ public class RedLong extends LinearOpMode {
             return;
         }
 
-            //centerDropRed();
-      //  rightDropRed();
-        leftDropRed();
+        centerDropRed();
+ //        rightDropRed();
+//        leftDropRed();
     }
 }
+
+

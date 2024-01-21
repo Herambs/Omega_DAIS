@@ -321,18 +321,18 @@ public class BlueLong extends LinearOpMode {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
-        auto.servoZero();
-        backward(43);
-        auto.purpleDrop1(-0.35);
-        sleep(550);
-        auto.purpleDrop1(0);
+//        auto.servoZero();
+        backward(41.5);
+        auto.purpleDrop1(1);
+//        sleep(550);
+//        auto.purpleDrop1(0);
         backward(6);
         sleep(4000);
         turnRight(94.4);
-        forward(73);
+        forward(75);
         sleep(200);
         turnLeft(94.5);
-        forward(20);
+        forward(25);
         turnRight(94.5);
      // strafeLeft(20);
         auto.channelMotionEncoder(0.5, 1500);
@@ -360,27 +360,24 @@ public class BlueLong extends LinearOpMode {
 //        lineToHeading(75,0,0);
 
 
-        auto.servoZero();
-        backward(25.5);
+//       auto.servoZero();
+            backward(26.5);
         turnRight(94.5);
-        forward(3.2);
-        auto.purpleDrop1(-0.35);
-        sleep(550);
-        auto.purpleDrop1(0);
+        forward(2.5);
+        auto.purpleDrop1(1);
+//        sleep(550);
+//        auto.purpleDrop1(0);
         sleep(4000);
-        backward(4.7);
-        turnLeft(94);
-        backward(22.5);
-        turnRight(94);
-        forward(75);
+        backward(3.7);
+        turnLeft(94.5);
+        backward(18);
+        turnRight(94.5);
+        forward(76);
         sleep(100);
         turnLeft(94.5);
-        forward(24.5);
-        turnRight(94.5);
-      //  strafeLeft(24.5);
-        /*turnLeft(94);
-        forward(24);
-        turnRight(94);*/
+        forward(28);
+        turnRight(95.5);
+
         auto.channelMotionEncoder(0.5, 1500);
         auto.servoPlace();
         sleep(1000);
@@ -398,14 +395,14 @@ public class BlueLong extends LinearOpMode {
     public void rightDrop(){
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-        auto.servoZero();
+//        auto.servoZero();
         backward(25.5);
         turnLeft(94.5);
-        forward(3.4);
-        auto.purpleDrop1(-0.35);
-        sleep(540);
-        auto.purpleDrop1(0);
-        backward(4.2);
+//        forward(3.4);
+        auto.purpleDrop1(1);
+//        sleep(540);
+//        auto.purpleDrop1(0);
+        backward(2);
         sleep(4000);
         turnRight(94);
         backward(22.5);
@@ -433,6 +430,7 @@ public class BlueLong extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+        auto.servoZero();
 
        /* int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -486,9 +484,9 @@ public class BlueLong extends LinearOpMode {
         }
 
 
-          centerDrop();  // Spike Location center
+   //       centerDrop();  // Spike Location center
 
-    //        leftDrop();
+       //     leftDrop();
 
      //     rightDrop();
 
