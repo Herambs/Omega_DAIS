@@ -143,8 +143,8 @@ public class RedShort extends LinearOpMode {
         Mat hsvFrame = new Mat();
         Imgproc.cvtColor(frame, hsvFrame, Imgproc.COLOR_BGR2HSV);
 
-        Scalar lowerYellow = new Scalar(0, 50, 70);
-        Scalar upperYellow = new Scalar(60, 255, 255);
+        Scalar lowerYellow = new Scalar(100, 50, 70);
+        Scalar upperYellow = new Scalar(130, 255, 255);
         //Hue 0-60 for blue
         //Hue 60-90 for green
         //Hue 100-130 for red
@@ -425,61 +425,46 @@ public class RedShort extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-//        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-//
-//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-//                "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-//
-//        // Use OpenCvCameraFactory class from FTC SDK to create camera instance
-//        controlHubCam = OpenCvCameraFactory.getInstance().createWebcam(
-//                hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-//        controlHubCam.setPipeline(new YellowBlobDetectionPipeline());
-//        controlHubCam.openCameraDevice();
-//        controlHubCam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
-//
-//        FtcDashboard dashboard = FtcDashboard.getInstance();
-//        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
-//        FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);
+        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+
+        // Use OpenCvCameraFactory class from FTC SDK to create camera instance
+        controlHubCam = OpenCvCameraFactory.getInstance().createWebcam(
+                hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        controlHubCam.setPipeline(new YellowBlobDetectionPipeline());
+        controlHubCam.openCameraDevice();
+        controlHubCam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
+        FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);
 
         waitForStart();
+        sleep(500);
+        controlHubCam.stopStreaming();
 
 //        telemetry.addData("Coordinate", "(" + (int) cX + ", " + (int) cY + ")");
 //        telemetry.addData("Distance in Inch", (getDistance(width)));
 //        telemetry.update();
 
-//        if(cX >= 50 && cX <= 200){
-//            left = 1;
-//            telemetry.addLine("LEFT");
-//        } else if (cX >= 400 && cX <= 600) {
-//            right = 1;
-//            telemetry.addLine("RIGHT");
-//        } else {
-//            center = 1;
-//            telemetry.addLine("CENTER");
-//        }
-//
-//        // Release resources
-//        controlHubCam.stopStreaming();
+        if(cX >= 250 && cX <= 600){
+            telemetry.addLine("CENTER");
+            centerDropShortRed();
+        } else if (cX >= 50 && cX <= 150 && width >= 115) {
+            telemetry.addLine("LEFT");
+            //       leftDropShortRed();
+        } else {
+            telemetry.addLine("RIGHT");
+            //      rightDropShortRed();
+        }
+
+        telemetry.update();
 
         if(isStopRequested()){
             return;
         }
-
-
-//        if(right == 1){
-//            rightDropShortRed();
-//        }
-//        if(left == 1){
-//            leftDropShortRed();
-//        }
-//
-//        if(center == 1){
-//            centerDropShortRed();
-//        }
-
-  //      rightDropShortRed();
- //       leftDropShortRed();
-        centerDropShortRed();
 
 
     }

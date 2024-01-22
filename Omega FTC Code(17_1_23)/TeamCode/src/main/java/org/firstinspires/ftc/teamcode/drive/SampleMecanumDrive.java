@@ -660,10 +660,17 @@ public class SampleMecanumDrive extends MecanumDrive {
     }
     public void purpleDrop1(double position){
 
+//        double current_pos = 0;
+//        double counter = 0;
         double pos = position;
-        purple_drop.setPosition(pos);
-//        double pwr = power;
-//        out_take.setPower(pwr);
+//        while(purple_drop.getPosition() >= pos) {
+//            current_pos = purple_drop.getPosition();
+//            current_pos = current_pos + counter;
+//            counter = counter + 0.001;
+            purple_drop.setPosition(pos);// new servo position
+//        double pwr = power;//original code of intake
+//        out_take.setPower(pwr);//original code of intake
+//        }
     }
 
     public void outTakeStop(){

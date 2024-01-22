@@ -143,8 +143,8 @@ public class BlueLong extends LinearOpMode {
         Mat hsvFrame = new Mat();
         Imgproc.cvtColor(frame, hsvFrame, Imgproc.COLOR_BGR2HSV);
 
-        Scalar lowerYellow = new Scalar(100, 50, 70);
-        Scalar upperYellow = new Scalar(130, 255, 255);
+        Scalar lowerYellow = new Scalar(0, 50, 70);
+        Scalar upperYellow = new Scalar(60, 255, 255);
         //Hue 0-60 for blue
         //Hue 60-90 for green
         //Hue 100-130 for red
@@ -322,20 +322,20 @@ public class BlueLong extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(41.5);
+        backward(44.5);
         auto.purpleDrop1(1);
+        sleep(4000);
 //        sleep(550);
 //        auto.purpleDrop1(0);
-        backward(6);
-        sleep(4000);
+        backward(4);
         turnRight(94.4);
-        forward(75);
+        forward(73);
         sleep(200);
         turnLeft(94.5);
-        forward(25);
+        forward(23.5);
         turnRight(94.5);
      // strafeLeft(20);
-        auto.channelMotionEncoder(0.5, 1500);
+        auto.channelMotionEncoder(0.5, 1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
@@ -361,24 +361,24 @@ public class BlueLong extends LinearOpMode {
 
 
 //       auto.servoZero();
-            backward(26.5);
+        backward(26.5);
         turnRight(94.5);
-        forward(2.5);
         auto.purpleDrop1(1);
+        sleep(4000);
+//        forward(2.5);
 //        sleep(550);
 //        auto.purpleDrop1(0);
-        sleep(4000);
-        backward(3.7);
+        backward(3);
         turnLeft(94.5);
         backward(18);
-        turnRight(94.5);
-        forward(76);
+        turnRight(95.5);
+        forward(73);
         sleep(100);
         turnLeft(94.5);
         forward(28);
-        turnRight(95.5);
+        turnRight(94.5);
 
-        auto.channelMotionEncoder(0.5, 1500);
+        auto.channelMotionEncoder(0.5, 1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
@@ -400,21 +400,21 @@ public class BlueLong extends LinearOpMode {
         turnLeft(94.5);
 //        forward(3.4);
         auto.purpleDrop1(1);
+        sleep(4000);
 //        sleep(540);
 //        auto.purpleDrop1(0);
-        backward(2);
-        sleep(4000);
-        turnRight(94);
+        backward(3);
+        turnRight(94.5);
         backward(22.5);
-        turnRight(95);
-        forward(75);
+        turnRight(95.5);
+        forward(73);
 
         sleep(100);
         turnLeft(94.5);
-        forward(14.5);
+        forward(17);
         turnRight(94.5);
        // strafeLeft(14.5);
-        auto.channelMotionEncoder(0.5,1500);
+        auto.channelMotionEncoder(0.5,1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
@@ -432,7 +432,7 @@ public class BlueLong extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
         auto.servoZero();
 
-       /* int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 
         // Use OpenCvCameraFactory class from FTC SDK to create camera instance
@@ -444,37 +444,28 @@ public class BlueLong extends LinearOpMode {
 
         FtcDashboard dashboard = FtcDashboard.getInstance();
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
-        FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);*/
+        FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);
 
         waitForStart();
 
-            sleep(1000);
+            sleep(500);
+            controlHubCam.stopStreaming();
 //            telemetry.addData("Coordinate", "(" + (int) cX + ", " + (int) cY + ")");
 //            telemetry.addData("Distance in Inch", (getDistance(width)));
 //            telemetry.update();
 
-//            if(cX >= 50 && cX <= 600){
-//                center = 1;
-//                telemetry.addLine("CENTER");
-//                telemetry.update();
-//                sleep(2000);
-//                controlHubCam.stopStreaming();
-//                centerDrop();
-//            } else if (cX >= 400 && cX <= 600) {
-//                right = 1;
-//                telemetry.addLine("RIGHT");
-//                telemetry.update();
-//                sleep(2000);
-//                controlHubCam.stopStreaming();
-////                rightDrop();
-//            } else {
-//                left = 1;
-//                telemetry.addLine("LEFT");
-//                telemetry.update();
-//                sleep(2000);
-//                controlHubCam.stopStreaming();
-////                leftDrop();
-//            }
+            if(cX >= 250 && cX <= 600){
+            telemetry.addLine("CENTER");
+            centerDrop();  // Spike Location center
+            } else if (cX >= 50 && cX <= 150 && width >= 115) {
+            telemetry.addLine("LEFT");
+            leftDrop();
+            } else {
+            telemetry.addLine("RIGHT");
+            rightDrop();
+            }
+
+            telemetry.update();
 
     // Release resources
 
@@ -484,11 +475,7 @@ public class BlueLong extends LinearOpMode {
         }
 
 
-   //       centerDrop();  // Spike Location center
 
-       //     leftDrop();
-
-     //     rightDrop();
 
 
     }

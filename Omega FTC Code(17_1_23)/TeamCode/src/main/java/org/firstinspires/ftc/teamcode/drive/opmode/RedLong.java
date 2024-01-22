@@ -141,8 +141,8 @@ public class RedLong extends LinearOpMode {
         Mat hsvFrame = new Mat();
         Imgproc.cvtColor(frame, hsvFrame, Imgproc.COLOR_BGR2HSV);
 
-        Scalar lowerYellow = new Scalar(0, 50, 70);
-        Scalar upperYellow = new Scalar(60, 255, 255);
+        Scalar lowerYellow = new Scalar(100, 50, 70);
+        Scalar upperYellow = new Scalar(130, 255, 255);
         //Hue 0-60 for blue
         //Hue 60-90 for green
         //Hue 100-130 for red
@@ -321,21 +321,21 @@ public class RedLong extends LinearOpMode {
 
 
 //        auto.servoZero();//To be change if servo does not work in  auto code
-        backward(43);
+        backward(46);
         auto.purpleDrop1(1);
 //        auto.purpleDrop1(-0.35);
 //        sleep(550);
 //        auto.purpleDrop1(0);
         sleep(4000);
-        backward(6);
+        backward(3.5);
         //sleep(4000);
         turnLeft(94.5);
         forward(75);
         turnRight(94.5);
-        forward(25);
+        forward(24);
         turnLeft(94.5);
         //strafeRight(23.8);
-        auto.channelMotionEncoder(0.5, 1500);
+        auto.channelMotionEncoder(0.5, 1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
@@ -428,44 +428,51 @@ public class RedLong extends LinearOpMode {
         SampleMecanumDrive auto = new SampleMecanumDrive(hardwareMap);
         auto.servoZero();
 //
-//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-//                "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-//
-//        // Use OpenCvCameraFactory class from FTC SDK to create camera instance
-//        controlHubCam = OpenCvCameraFactory.getInstance().createWebcam(
-//                hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-//        controlHubCam.setPipeline(new YellowBlobDetectionPipeline());
-//        controlHubCam.openCameraDevice();
-//        controlHubCam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
-//
-//        FtcDashboard dashboard = FtcDashboard.getInstance();
-//        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
-//        FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+
+        // Use OpenCvCameraFactory class from FTC SDK to create camera instance
+        controlHubCam = OpenCvCameraFactory.getInstance().createWebcam(
+                hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        controlHubCam.setPipeline(new YellowBlobDetectionPipeline());
+        controlHubCam.openCameraDevice();
+        controlHubCam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
+        FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);
+
 
         waitForStart();
+        sleep(500);
+        controlHubCam.stopStreaming();
 
 //        telemetry.addData("Coordinate", "(" + (int) cX + ", " + (int) cY + ")");
 //        telemetry.addData("Distance in Inch", (getDistance(width)));
 //        telemetry.update();
 //
-//        if(cX >= 50 && cX <= 200){
-//            telemetry.addLine("LEFT");
-//        } else if (cX >= 400 && cX <= 600) {
-//            telemetry.addLine("RIGHT");
-//        } else if (cX >= 200 && cX <= 400) {
-//            telemetry.addLine("CENTER");
-//        }
-//
-//        // Release resources
-//        controlHubCam.stopStreaming();
+        if(cX >= 250 && cX <= 600){
+            telemetry.addLine("CENTER");
+            centerDropRed();
+        } else if (cX >= 50 && cX <= 150 && width >= 115) {
+            telemetry.addLine("LEFT");
+            leftDropRed();
+        } else {
+            telemetry.addLine("RIGHT");
+            rightDropRed();
+        }
+
+        telemetry.update();
+
+        // Release resources
 
         if (isStopRequested()) {
             return;
         }
 
-        centerDropRed();
- //        rightDropRed();
-//        leftDropRed();
+
+
+
     }
 }
 
