@@ -320,20 +320,23 @@ public class BlueShort extends LinearOpMode {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
-        auto.servoZero();
+//        auto.servoZero();
         backward(25.5);
         turnLeft(94.5);
-        forward(3.4);
-        auto.purpleDrop1(-0.35);
+        forward(1.5);
+        auto.purpleDrop1(1);
         sleep(550);
-        auto.purpleDrop1(0);
-        backward(4.2);
+//        auto.purpleDrop1(0);
+        backward(2.5);
 
         turnRight(184.0);
         forward(25);
         sleep(100);
-        strafeRight(5.5);
-        auto.channelMotionEncoder(0.5, 1500);
+        turnRight(94.5);
+        forward(5.5);
+        turnLeft(94.5);
+//        strafeRight(5.5);
+        auto.channelMotionEncoder(0.5, 1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
@@ -355,17 +358,20 @@ public class BlueShort extends LinearOpMode {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
-        auto.servoZero();
-        backward(44.0);
-        auto.purpleDrop1(-0.35);
+//        auto.servoZero();
+        backward(45.0);
+        auto.purpleDrop1(1);
         sleep(550);
-        auto.purpleDrop1(0);
-        backward(6);
+//        auto.purpleDrop1(0);
+        backward(3);
         turnRight(94.5);
         forward(26);
         sleep(100);
-        strafeLeft(22);
-        auto.channelMotionEncoder(0.5, 1500);
+        turnLeft(94.5);
+        forward(24);
+        turnRight(94.5);
+//        strafeLeft(22);
+        auto.channelMotionEncoder(0.5, 1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
@@ -387,20 +393,23 @@ public class BlueShort extends LinearOpMode {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
-        auto.servoZero();
+//        auto.servoZero();
         backward(25.5);
         turnRight(94.5);
-        forward(4.2);
-        auto.purpleDrop1(-0.35);
+        forward(1.5);
+        auto.purpleDrop1(1);
         sleep(550);
-        auto.purpleDrop1(0);
-        backward(3.4);
+//        auto.purpleDrop1(0);
+        backward(2.5);
         turnLeft(94.5);
         backward(21);
         turnRight(94.5);
         forward(25);
-        strafeLeft(23.5);
-        auto.channelMotionEncoder(0.5, 1500);
+        turnLeft(94.5);
+        forward(28);
+        turnRight(94.5);
+//        strafeLeft(23.5);
+        auto.channelMotionEncoder(0.5, 1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
@@ -423,45 +432,51 @@ public class BlueShort extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-//        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-//
-//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
-//                "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-//
-//        // Use OpenCvCameraFactory class from FTC SDK to create camera instance
-//        controlHubCam = OpenCvCameraFactory.getInstance().createWebcam(
-//                hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-//        controlHubCam.setPipeline(new YellowBlobDetectionPipeline());
-//        controlHubCam.openCameraDevice();
-//        controlHubCam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
-//
-//        FtcDashboard dashboard = FtcDashboard.getInstance();
-//        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
-//        FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);
+        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+
+        // Use OpenCvCameraFactory class from FTC SDK to create camera instance
+        controlHubCam = OpenCvCameraFactory.getInstance().createWebcam(
+                hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        controlHubCam.setPipeline(new YellowBlobDetectionPipeline());
+        controlHubCam.openCameraDevice();
+        controlHubCam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+        telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
+        FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);
+
+        auto.servoZero();
 
         waitForStart();
+        sleep(500);
+        controlHubCam.stopStreaming();
 
 //        telemetry.addData("Coordinate", "(" + (int) cX + ", " + (int) cY + ")");
 //        telemetry.addData("Distance in Inch", (getDistance(width)));
 //        telemetry.update();
 //
-//        if(cX >= 50 && cX <= 200){
-//            telemetry.addLine("LEFT");
-//        } else if (cX >= 400 && cX <= 600) {
-//            telemetry.addLine("RIGHT");
-//        } else if (cX >= 200 && cX <= 400) {
-//            telemetry.addLine("CENTER");
-//        }
+        if(cX >= 250 && cX <= 600){
+            telemetry.addLine("CENTER");
+            centerDropShort();
+        } else if (cX >= 50 && cX <= 150 && width >= 115) {
+            telemetry.addLine("LEFT");
+            leftDropShort();
+        } else {
+            telemetry.addLine("RIGHT");
+            rightDropShort();
+        }
 
-        // Release resources
-//        controlHubCam.stopStreaming();
+        telemetry.update();
 
         if(isStopRequested()){
             return;
         }
 
-//          rightDropShort();
-      centerDropShort();
-       // leftDropShort();
+
+
+
     }
 }

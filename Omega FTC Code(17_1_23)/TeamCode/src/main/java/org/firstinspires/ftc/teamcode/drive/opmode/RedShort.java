@@ -323,14 +323,14 @@ public class RedShort extends LinearOpMode {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
-        auto.servoZero();
-        backward(27);
+//        auto.servoZero();
+        backward(26.5);
         turnLeft(94.5);
-        forward(3);
-        auto.purpleDrop1(-0.35);
+        forward(1.5);
+        auto.purpleDrop1(1);
         sleep(550);
-        auto.purpleDrop1(0);
-        backward(4);
+//        auto.purpleDrop1(0);
+        backward(2.5);
         turnRight(94.5);
         backward(21);
         turnLeft(94.5);
@@ -359,17 +359,19 @@ public class RedShort extends LinearOpMode {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
-        auto.servoZero();
-        backward(39);
-        auto.purpleDrop1(-0.35);
+//        auto.servoZero();
+        backward(46);
+        auto.purpleDrop1(1);
         sleep(550);
-        auto.purpleDrop1(0);
-        backward(6);
+        backward(3);
         turnLeft(94.5);
         forward(28.5);
         sleep(100);
-        strafeRight(20);
-        auto.channelMotionEncoder(0.5, 1500);
+        turnRight(94.5);
+        forward(23);
+        turnLeft(94.5);
+//        strafeRight(20);
+        auto.channelMotionEncoder(0.5, 1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
@@ -391,18 +393,21 @@ public class RedShort extends LinearOpMode {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
-        auto.servoZero();
-        backward(28);
+//        auto.servoZero();
+        backward(26.7);
         turnRight(94.5);
-        forward(3.2);
-        auto.purpleDrop1(-0.35);
+        forward(1.5);
+        auto.purpleDrop1(1);
         sleep(550);
-        auto.purpleDrop1(0);
-        backward(4.4);
+//        auto.purpleDrop1(0);
+        backward(2.5);
         turnLeft(183.5);
         forward(28);
-        strafeLeft(4.5);
-        auto.channelMotionEncoder(0.5,1500);
+        turnLeft(94.5);
+        forward(7);
+        turnRight(94.5);
+//        strafeLeft(4.5);
+        auto.channelMotionEncoder(0.5,1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
@@ -427,6 +432,8 @@ public class RedShort extends LinearOpMode {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
+        auto.servoZero();
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 
@@ -441,6 +448,8 @@ public class RedShort extends LinearOpMode {
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
         FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);
 
+        auto.servoZero();
+
         waitForStart();
         sleep(500);
         controlHubCam.stopStreaming();
@@ -454,10 +463,10 @@ public class RedShort extends LinearOpMode {
             centerDropShortRed();
         } else if (cX >= 50 && cX <= 150 && width >= 115) {
             telemetry.addLine("LEFT");
-            //       leftDropShortRed();
+            leftDropShortRed();
         } else {
             telemetry.addLine("RIGHT");
-            //      rightDropShortRed();
+            rightDropShortRed();
         }
 
         telemetry.update();
