@@ -30,10 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "BS", group = "Autonomous")
-public class BS extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "RSNEW", group = "Autonomous")
+public class RSNEW extends LinearOpMode {
 
     private double forwardDistance=0;
+
+    double left = 0, right = 0, center = 0;
 
     double width = 0;
 
@@ -141,8 +143,8 @@ public class BS extends LinearOpMode {
         Mat hsvFrame = new Mat();
         Imgproc.cvtColor(frame, hsvFrame, Imgproc.COLOR_BGR2HSV);
 
-        Scalar lowerYellow = new Scalar(0, 50, 70);
-        Scalar upperYellow = new Scalar(60, 255, 255);
+        Scalar lowerYellow = new Scalar(100, 50, 70);
+        Scalar upperYellow = new Scalar(130, 255, 255);
         //Hue 0-60 for blue
         //Hue 60-90 for green
         //Hue 100-130 for red
@@ -262,6 +264,7 @@ public class BS extends LinearOpMode {
 
     public void turnRight(double turnAngle){
 
+
         SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
 
         rightAngle=turnAngle;
@@ -313,103 +316,31 @@ public class BS extends LinearOpMode {
 
         drive.followTrajectory(strafeLeftTrajectory);
 
-
     }
 
-    public void rightDropShort(){
+
+    public void rightDropShortRed(){
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(26.5);
+        backward(30.5);
         turnLeft(94.5);
-        forward(2.5);
-        auto.purpleDrop1(1);
-        sleep(550);
-//        auto.purpleDrop1(0);
-        backward(4);
-
-        turnRight(184.0);
-        forward(25);
-        sleep(100);
-        turnRight(94.5);
-        forward(6.5);
-        turnLeft(94.5);
-//        strafeRight(5.5);
-        auto.channelMotionEncoder(0.5, 1300);
-        auto.servoPlace();
-        sleep(1000);
-        auto.ForwardDistance(0.2);
-
-
-        auto.drop();
-        sleep(1000);
-        auto.servoZero();
-        sleep(1000);
-        auto.channelMotionDown(-0.5, 0);
-        strafeLeft(30);
-//        turnRight(15);
-//        forward(13);
-
-    }
-
-
-    public void centerDropShort(){
-
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-//        auto.servoZero();
-        backward(43.0);
-        auto.purpleDrop1(1);
-        sleep(550);
-//        auto.purpleDrop1(0);
-        backward(4);
-        turnRight(94.5);
-        forward(24);
-        sleep(100);
-        turnLeft(94.5);
-        forward(23);
-        turnRight(94.5);
-//        strafeLeft(22);
-        auto.channelMotionEncoder(0.5, 1300);
-        auto.servoPlace();
-        sleep(1000);
-        auto.ForwardDistance(0.2);
-
-
-        auto.drop();
-        sleep(1000);
-        auto.servoZero();
-        sleep(1000);
-        auto.channelMotionDown(-0.5, 0);
-        strafeLeft(26);
-//        turnRight(20);
-//        forward(13);
-
-    }
-
-
-    public void leftDropShort(){
-
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-//        auto.servoZero();
-        backward(25.5);
-        turnRight(94.5);
         forward(2);
         auto.purpleDrop1(1);
         sleep(550);
 //        auto.purpleDrop1(0);
-        backward(4.5);
-        turnLeft(94.5);
-        backward(21);
+        backward(3.5);
         turnRight(94.5);
-        forward(25);
+        backward(19);
         turnLeft(94.5);
-        forward(25);
+        sleep(100);
+        forward(29);
         turnRight(94.5);
-//        strafeLeft(23.5);
-        auto.channelMotionEncoder(0.5, 1300);
+        forward(29.5);
+        turnLeft(94.5);
+//        strafeRight(25.5);
+        auto.channelMotionEncoder(0.5,1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
@@ -420,8 +351,78 @@ public class BS extends LinearOpMode {
         auto.servoZero();
         sleep(1000);
         auto.channelMotionDown(-0.5, 0);
-        strafeLeft(18.5);
-//        turnRight(15);
+        strafeRight(18);
+//        turnLeft(20);
+//        forward(13);
+    }
+
+
+
+    public void centerDropShortRed(){
+
+        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+
+//        auto.servoZero();
+        backward(46);
+        auto.purpleDrop1(1);
+        sleep(550);
+        backward(3);
+        turnLeft(94.5);
+        forward(28.5);
+        sleep(100);
+        turnRight(94.5);
+        forward(27);
+        turnLeft(94.5);
+//        strafeRight(20);
+        auto.channelMotionEncoder(0.5, 1300);
+        auto.servoPlace();
+        sleep(1000);
+        auto.ForwardDistance(0.2);
+
+        auto.drop();
+
+        sleep(1000);
+        auto.servoZero();
+        sleep(1000);
+        auto.channelMotionDown(-0.5, 0);
+        strafeRight(24);
+//        turnLeft(15);
+//        forward(13);
+
+    }
+
+
+    public void leftDropShortRed(){
+
+        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+
+//        auto.servoZero();
+        backward(28.7);
+        turnRight(94.5);
+        forward(5);
+        auto.purpleDrop1(1);
+        sleep(550);
+//        auto.purpleDrop1(0);
+        backward(5);
+        turnLeft(183.5);
+        forward(28);
+        turnLeft(94.5);
+        forward(8.5);
+        turnRight(94.5);
+//        strafeLeft(4.5);
+        auto.channelMotionEncoder(0.5,1300);
+        auto.servoPlace();
+        sleep(1000);
+        auto.ForwardDistance(0.2);
+
+
+        auto.drop();
+        sleep(1000);
+        auto.servoZero();
+        sleep(1000);
+        auto.channelMotionDown(-0.5, 0);
+        strafeRight(30);
+//        turnLeft(15);
 //        forward(13);
 
     }
@@ -433,6 +434,8 @@ public class BS extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+
+        auto.servoZero();
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -457,16 +460,16 @@ public class BS extends LinearOpMode {
 //        telemetry.addData("Coordinate", "(" + (int) cX + ", " + (int) cY + ")");
 //        telemetry.addData("Distance in Inch", (getDistance(width)));
 //        telemetry.update();
-//
+
         if(cX >= 250 && cX <= 600){
             telemetry.addLine("CENTER");
-            centerDropShort();
+            centerDropShortRed();
         } else if (cX >= 50 && cX <= 150 && width >= 115) {
             telemetry.addLine("LEFT");
-            leftDropShort();
+            leftDropShortRed();
         } else {
             telemetry.addLine("RIGHT");
-            rightDropShort();
+            rightDropShortRed();
         }
 
         telemetry.update();
@@ -474,8 +477,6 @@ public class BS extends LinearOpMode {
         if(isStopRequested()){
             return;
         }
-
-
 
 
     }

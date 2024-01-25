@@ -30,24 +30,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "BS", group = "Autonomous")
-public class BS extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "RLNEW", group = "Autonomous")
+public class RLNEW extends LinearOpMode {
 
-    private double forwardDistance=0;
+    private double forwardDistance = 0;
 
     double width = 0;
 
-    private double backwardDistance=0;
+    private double backwardDistance = 0;
 
-    private double rightAngle=0;
+    private double rightAngle = 0;
 
-    private double leftAngle=0;
+    private double leftAngle = 0;
 
-    private double strafeRightDistance=0;
+    private double strafeRightDistance = 0;
 
-    private double strafeLeftDistance=0;
+    private double strafeLeftDistance = 0;
 
-    private double countsPerInch=1917.0;
+    private double countsPerInch = 1917.0;
 
     private Servo boxLeft, boxRight;
     private Servo InnerGrab;
@@ -141,8 +141,8 @@ public class BS extends LinearOpMode {
         Mat hsvFrame = new Mat();
         Imgproc.cvtColor(frame, hsvFrame, Imgproc.COLOR_BGR2HSV);
 
-        Scalar lowerYellow = new Scalar(0, 50, 70);
-        Scalar upperYellow = new Scalar(60, 255, 255);
+        Scalar lowerYellow = new Scalar(100, 50, 70);
+        Scalar upperYellow = new Scalar(130, 255, 255);
         //Hue 0-60 for blue
         //Hue 60-90 for green
         //Hue 100-130 for red
@@ -178,16 +178,15 @@ public class BS extends LinearOpMode {
         return boundingRect.width;
     }
 
-    private static double getDistance(double width){
+    private static double getDistance(double width) {
         double distance = (objectWidthInRealWorldUnits * focalLength) / width;
         return distance;
     }
 
 
+    public void lineToHeading(double x, double y, double heading) {
 
-    public void lineToHeading(double x, double y, double heading){
-
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         double x1 = x;
         double y1 = y;
@@ -205,9 +204,9 @@ public class BS extends LinearOpMode {
 
     }
 
-    public void strafeHeading(double x, double y){
+    public void strafeHeading(double x, double y) {
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         double x1 = x;
         double y1 = y;
@@ -223,11 +222,12 @@ public class BS extends LinearOpMode {
         drive.followTrajectory(lineToLinearHeading);
 
     }
-    public void forward(double distance){
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+    public void forward(double distance) {
 
-        forwardDistance=distance;
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+
+        forwardDistance = distance;
 
         // Define the starting pose
         Pose2d startPose = new Pose2d();
@@ -242,11 +242,11 @@ public class BS extends LinearOpMode {
     }
 
 
-    public void backward(double distance){
+    public void backward(double distance) {
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        backwardDistance=distance;
+        backwardDistance = distance;
 
         // Define the starting pose
         Pose2d startPose = new Pose2d();
@@ -260,30 +260,30 @@ public class BS extends LinearOpMode {
 
     }
 
-    public void turnRight(double turnAngle){
+    public void turnRight(double turnAngle) {
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        rightAngle=turnAngle;
+        rightAngle = turnAngle;
 
         drive.turn(Math.toRadians(-rightAngle));
     }
 
-    public void turnLeft(double turnAngle){
+    public void turnLeft(double turnAngle) {
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        leftAngle=turnAngle;
+        leftAngle = turnAngle;
 
         drive.turn(Math.toRadians(leftAngle));
 
     }
 
-    public void strafeRight(double strafeRightDis){
+    public void strafeRight(double strafeRightDis) {
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        strafeRightDistance=strafeRightDis;
+        strafeRightDistance = strafeRightDis;
 
         // Define the starting pose
         Pose2d startPose = new Pose2d();
@@ -297,11 +297,11 @@ public class BS extends LinearOpMode {
 
     }
 
-    public void strafeLeft(double strafeLeftDis){
+    public void strafeLeft(double strafeLeftDis) {
 
-        SampleMecanumDrive drive= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        strafeLeftDistance=strafeLeftDis;
+        strafeLeftDistance = strafeLeftDis;
 
         // Define the starting pose
         Pose2d startPose = new Pose2d();
@@ -313,127 +313,121 @@ public class BS extends LinearOpMode {
 
         drive.followTrajectory(strafeLeftTrajectory);
 
+    }
+
+
+    public void centerDropRed() {
+        SampleMecanumDrive auto = new SampleMecanumDrive(hardwareMap);
+
+
+//        auto.servoZero();//To be change if servo does not work in  auto code
+        backward(48);
+        auto.purpleDrop1(1);
+//        auto.purpleDrop1(-0.35);
+//        sleep(550);
+//        auto.purpleDrop1(0);
+        sleep(4000);
+        backward(3.5);
+        //sleep(4000);
+        turnLeft(94.5);
+        forward(75);
+        turnRight(94.5);
+        forward(24.5);
+        turnLeft(94.5);
+        //strafeRight(23.8);
+        auto.channelMotionEncoder(0.5, 1300);
+        auto.servoPlace();
+        sleep(1000);
+        auto.ForwardDistance(0.2);
+        sleep(100);
+        auto.drop();
+        sleep(1000);
+        auto.servoZero();
+        sleep(1000);
+        auto.channelMotionDown(-0.5, 0);
+
 
     }
 
-    public void rightDropShort(){
+    public void rightDropRed() {
 
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+        SampleMecanumDrive auto = new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(26.5);
+        backward(28.7);
         turnLeft(94.5);
-        forward(2.5);
+        forward(1.8);
         auto.purpleDrop1(1);
-        sleep(550);
+//        sleep(550);
 //        auto.purpleDrop1(0);
-        backward(4);
+        sleep(4000);
+        backward(4.2);
+        turnRight(94.5);
 
-        turnRight(184.0);
-        forward(25);
+        backward(18);
+        turnLeft(94.5);
+        forward(73);
+        sleep(100);
+        turnRight(95.5);
+        forward(30.5);
+        turnLeft(94.5);
+        //strafeRight(27);
+        auto.channelMotionEncoder(0.5, 1300);
+        auto.servoPlace();
+        sleep(1000);
+        auto.ForwardDistance(0.25);
+        auto.drop();
+        sleep(1000);
+        auto.servoZero();
+        sleep(1000);
+        auto.channelMotionDown(-0.5, 0);
+
+    }
+
+    public void leftDropRed() {
+
+        SampleMecanumDrive auto = new SampleMecanumDrive(hardwareMap);
+
+//        auto.servoZero();
+        backward(28.5);
+        turnRight(94.5);
+        forward(3.5);
+        auto.purpleDrop1(1);
+//        auto.purpleDrop1(-0.35);
+//        sleep(550);
+//        auto.purpleDrop1(0);
+        sleep(4000);
+        backward(4);
+        //sleep(4000);
+        turnLeft(94.5);
+        backward(22);
+        turnLeft(94.5);
+        forward(73);
         sleep(100);
         turnRight(94.5);
-        forward(6.5);
-        turnLeft(94.5);
-//        strafeRight(5.5);
+        forward(20.5);
+        turnLeft(95.5);
+        //strafeRight(16.5);
+
         auto.channelMotionEncoder(0.5, 1300);
         auto.servoPlace();
         sleep(1000);
-        auto.ForwardDistance(0.2);
-
-
+        auto.ForwardDistance(0.25);
         auto.drop();
         sleep(1000);
         auto.servoZero();
         sleep(1000);
         auto.channelMotionDown(-0.5, 0);
-        strafeLeft(30);
-//        turnRight(15);
-//        forward(13);
 
     }
-
-
-    public void centerDropShort(){
-
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-//        auto.servoZero();
-        backward(43.0);
-        auto.purpleDrop1(1);
-        sleep(550);
-//        auto.purpleDrop1(0);
-        backward(4);
-        turnRight(94.5);
-        forward(24);
-        sleep(100);
-        turnLeft(94.5);
-        forward(23);
-        turnRight(94.5);
-//        strafeLeft(22);
-        auto.channelMotionEncoder(0.5, 1300);
-        auto.servoPlace();
-        sleep(1000);
-        auto.ForwardDistance(0.2);
-
-
-        auto.drop();
-        sleep(1000);
-        auto.servoZero();
-        sleep(1000);
-        auto.channelMotionDown(-0.5, 0);
-        strafeLeft(26);
-//        turnRight(20);
-//        forward(13);
-
-    }
-
-
-    public void leftDropShort(){
-
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
-//        auto.servoZero();
-        backward(25.5);
-        turnRight(94.5);
-        forward(2);
-        auto.purpleDrop1(1);
-        sleep(550);
-//        auto.purpleDrop1(0);
-        backward(4.5);
-        turnLeft(94.5);
-        backward(21);
-        turnRight(94.5);
-        forward(25);
-        turnLeft(94.5);
-        forward(25);
-        turnRight(94.5);
-//        strafeLeft(23.5);
-        auto.channelMotionEncoder(0.5, 1300);
-        auto.servoPlace();
-        sleep(1000);
-        auto.ForwardDistance(0.2);
-
-
-        auto.drop();
-        sleep(1000);
-        auto.servoZero();
-        sleep(1000);
-        auto.channelMotionDown(-0.5, 0);
-        strafeLeft(18.5);
-//        turnRight(15);
-//        forward(13);
-
-    }
-
-
 
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
+        SampleMecanumDrive auto = new SampleMecanumDrive(hardwareMap);
+        auto.servoZero();
+//
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 
@@ -448,7 +442,6 @@ public class BS extends LinearOpMode {
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
         FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);
 
-        auto.servoZero();
 
         waitForStart();
         sleep(500);
@@ -460,18 +453,20 @@ public class BS extends LinearOpMode {
 //
         if(cX >= 250 && cX <= 600){
             telemetry.addLine("CENTER");
-            centerDropShort();
+            centerDropRed();
         } else if (cX >= 50 && cX <= 150 && width >= 115) {
             telemetry.addLine("LEFT");
-            leftDropShort();
+            leftDropRed();
         } else {
             telemetry.addLine("RIGHT");
-            rightDropShort();
+            rightDropRed();
         }
 
         telemetry.update();
 
-        if(isStopRequested()){
+        // Release resources
+
+        if (isStopRequested()) {
             return;
         }
 
@@ -480,3 +475,5 @@ public class BS extends LinearOpMode {
 
     }
 }
+
+

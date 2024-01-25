@@ -332,7 +332,7 @@ public class RL extends LinearOpMode {
         turnLeft(94.5);
         forward(75);
         turnRight(94.5);
-        forward(24);
+        forward(22.5);
         turnLeft(94.5);
         //strafeRight(23.8);
         auto.channelMotionEncoder(0.5, 1300);
@@ -361,7 +361,7 @@ public class RL extends LinearOpMode {
 //        sleep(550);
 //        auto.purpleDrop1(0);
         sleep(4000);
-        backward(3.2);
+        backward(4.2);
         turnRight(94.5);
 
         backward(18);
@@ -369,7 +369,7 @@ public class RL extends LinearOpMode {
         forward(73);
         sleep(100);
         turnRight(95.5);
-        forward(29.5);
+        forward(28.5);
         turnLeft(94.5);
         //strafeRight(27);
         auto.channelMotionEncoder(0.5, 1300);
@@ -391,13 +391,13 @@ public class RL extends LinearOpMode {
 //        auto.servoZero();
         backward(26.5);
         turnRight(94.5);
-        forward(1.5);
+        forward(3.5);
         auto.purpleDrop1(1);
 //        auto.purpleDrop1(-0.35);
 //        sleep(550);
 //        auto.purpleDrop1(0);
         sleep(4000);
-        backward(2.5);
+        backward(4);
         //sleep(4000);
         turnLeft(94.5);
         backward(22);
@@ -405,7 +405,7 @@ public class RL extends LinearOpMode {
         forward(73);
         sleep(100);
         turnRight(94.5);
-        forward(17);
+        forward(18.5);
         turnLeft(95.5);
         //strafeRight(16.5);
 

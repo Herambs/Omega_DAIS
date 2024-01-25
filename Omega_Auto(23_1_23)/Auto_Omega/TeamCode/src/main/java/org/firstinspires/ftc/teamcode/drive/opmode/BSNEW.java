@@ -30,8 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "BS", group = "Autonomous")
-public class BS extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "BSNEW", group = "Autonomous")
+public class BSNEW extends LinearOpMode {
 
     private double forwardDistance=0;
 
@@ -321,7 +321,7 @@ public class BS extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(26.5);
+        backward(28.5);
         turnLeft(94.5);
         forward(2.5);
         auto.purpleDrop1(1);
@@ -333,7 +333,7 @@ public class BS extends LinearOpMode {
         forward(25);
         sleep(100);
         turnRight(94.5);
-        forward(6.5);
+        forward(8.5);
         turnLeft(94.5);
 //        strafeRight(5.5);
         auto.channelMotionEncoder(0.5, 1300);
@@ -359,7 +359,7 @@ public class BS extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(43.0);
+        backward(45.0);
         auto.purpleDrop1(1);
         sleep(550);
 //        auto.purpleDrop1(0);
@@ -368,7 +368,7 @@ public class BS extends LinearOpMode {
         forward(24);
         sleep(100);
         turnLeft(94.5);
-        forward(23);
+        forward(25);
         turnRight(94.5);
 //        strafeLeft(22);
         auto.channelMotionEncoder(0.5, 1300);
@@ -394,7 +394,7 @@ public class BS extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(25.5);
+        backward(27.5);
         turnRight(94.5);
         forward(2);
         auto.purpleDrop1(1);
@@ -406,7 +406,7 @@ public class BS extends LinearOpMode {
         turnRight(94.5);
         forward(25);
         turnLeft(94.5);
-        forward(25);
+        forward(27);
         turnRight(94.5);
 //        strafeLeft(23.5);
         auto.channelMotionEncoder(0.5, 1300);

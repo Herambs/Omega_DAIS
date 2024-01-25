@@ -584,7 +584,7 @@ public class SampleMecanumDrive extends MecanumDrive {
     public void ForwardDistance(double power){
         double D = dsensor.getDistance(DistanceUnit.CM);
         double set=power;
-        while(D >= 18) { //D = 21.5 for longer path
+        while(D >= 19) { //D = 21.5 for longer path
             D = dsensor.getDistance(DistanceUnit.CM);
             rightFront.setPower(set);
             rightRear.setPower(set);

@@ -324,20 +324,20 @@ public class RS extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(26.5);
+        backward(28.5);
         turnLeft(94.5);
         forward(2);
         auto.purpleDrop1(1);
         sleep(550);
 //        auto.purpleDrop1(0);
-        backward(3);
+        backward(3.5);
         turnRight(94.5);
-        backward(21);
+        backward(19);
         turnLeft(94.5);
         sleep(100);
         forward(29);
         turnRight(94.5);
-        forward(28.5);
+        forward(27.5);
         turnLeft(94.5);
 //        strafeRight(25.5);
         auto.channelMotionEncoder(0.5,1300);
@@ -363,7 +363,7 @@ public class RS extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(46);
+        backward(44);
         auto.purpleDrop1(1);
         sleep(550);
         backward(3);
@@ -371,7 +371,7 @@ public class RS extends LinearOpMode {
         forward(28.5);
         sleep(100);
         turnRight(94.5);
-        forward(23);
+        forward(25);
         turnLeft(94.5);
 //        strafeRight(20);
         auto.channelMotionEncoder(0.5, 1300);
@@ -399,15 +399,15 @@ public class RS extends LinearOpMode {
 //        auto.servoZero();
         backward(26.7);
         turnRight(94.5);
-        forward(1.5);
+        forward(5);
         auto.purpleDrop1(1);
         sleep(550);
 //        auto.purpleDrop1(0);
-        backward(2.5);
+        backward(5);
         turnLeft(183.5);
         forward(28);
         turnLeft(94.5);
-        forward(5.5);
+        forward(6.5);
         turnRight(94.5);
 //        strafeLeft(4.5);
         auto.channelMotionEncoder(0.5,1300);

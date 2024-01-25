@@ -30,12 +30,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "BS", group = "Autonomous")
-public class BS extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "BLNEW", group = "Autonomous")
+public class BLNEW extends LinearOpMode {
 
     private double forwardDistance=0;
 
     double width = 0;
+
+    double left = 0, right = 0, center = 0;
 
     private double backwardDistance=0;
 
@@ -313,29 +315,26 @@ public class BS extends LinearOpMode {
 
         drive.followTrajectory(strafeLeftTrajectory);
 
-
     }
 
-    public void rightDropShort(){
+    public void centerDrop(){
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(26.5);
-        turnLeft(94.5);
-        forward(2.5);
+        backward(48);
         auto.purpleDrop1(1);
-        sleep(550);
+        sleep(4000);
+//        sleep(550);
 //        auto.purpleDrop1(0);
         backward(4);
-
-        turnRight(184.0);
-        forward(25);
-        sleep(100);
-        turnRight(94.5);
-        forward(6.5);
+        turnRight(94.4);
+        forward(73);
+        sleep(200);
         turnLeft(94.5);
-//        strafeRight(5.5);
+        forward(22);
+        turnRight(94.5);
+        // strafeLeft(20);
         auto.channelMotionEncoder(0.5, 1300);
         auto.servoPlace();
         sleep(1000);
@@ -345,94 +344,93 @@ public class BS extends LinearOpMode {
         auto.drop();
         sleep(1000);
         auto.servoZero();
-        sleep(1000);
+        sleep(1200);
+
         auto.channelMotionDown(-0.5, 0);
-        strafeLeft(30);
-//        turnRight(15);
-//        forward(13);
 
     }
 
-
-    public void centerDropShort(){
+    public void leftDrop(){
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
-//        auto.servoZero();
-        backward(43.0);
+//        forward(23);
+//        lineToHeading(-23, 0, 93.5);
+//        strafeHeading(0,-23);
+//        lineToHeading(75,0,0);
+
+
+//       auto.servoZero();
+        backward(30.5);
+        turnRight(94.5);
         auto.purpleDrop1(1);
-        sleep(550);
+        sleep(4000);
+//        forward(2.5);
+//        sleep(550);
 //        auto.purpleDrop1(0);
         backward(4);
-        turnRight(94.5);
-        forward(24);
+        turnLeft(94.5);
+        backward(18);
+        turnRight(95.5);
+        forward(73);
         sleep(100);
         turnLeft(94.5);
-        forward(23);
+        forward(27);
         turnRight(94.5);
-//        strafeLeft(22);
+
         auto.channelMotionEncoder(0.5, 1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
 
-
         auto.drop();
         sleep(1000);
         auto.servoZero();
-        sleep(1000);
+        sleep(1200);
         auto.channelMotionDown(-0.5, 0);
-        strafeLeft(26);
-//        turnRight(20);
-//        forward(13);
+
 
     }
 
-
-    public void leftDropShort(){
+    public void rightDrop(){
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
-
 //        auto.servoZero();
-        backward(25.5);
-        turnRight(94.5);
-        forward(2);
+        backward(30.5);
+        turnLeft(94.5);
+//        forward(3.4);
         auto.purpleDrop1(1);
-        sleep(550);
+        sleep(4000);
+//        sleep(540);
 //        auto.purpleDrop1(0);
-        backward(4.5);
-        turnLeft(94.5);
-        backward(21);
+        backward(3);
         turnRight(94.5);
-        forward(25);
+        backward(19.5);
+        turnRight(95.5);
+        forward(73);
+
+        sleep(100);
         turnLeft(94.5);
-        forward(25);
+        forward(19);
         turnRight(94.5);
-//        strafeLeft(23.5);
-        auto.channelMotionEncoder(0.5, 1300);
+        // strafeLeft(14.5);
+        auto.channelMotionEncoder(0.5,1300);
         auto.servoPlace();
         sleep(1000);
         auto.ForwardDistance(0.2);
-
-
+//
         auto.drop();
         sleep(1000);
         auto.servoZero();
-        sleep(1000);
+        sleep(1200);
         auto.channelMotionDown(-0.5, 0);
-        strafeLeft(18.5);
-//        turnRight(15);
-//        forward(13);
 
     }
-
-
-
-
     @Override
     public void runOpMode() throws InterruptedException {
 
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
+        auto.servoZero();
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -448,32 +446,34 @@ public class BS extends LinearOpMode {
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
         FtcDashboard.getInstance().startCameraStream(controlHubCam, 30);
 
-        auto.servoZero();
-
         waitForStart();
+
         sleep(500);
         controlHubCam.stopStreaming();
+//            telemetry.addData("Coordinate", "(" + (int) cX + ", " + (int) cY + ")");
+//            telemetry.addData("Distance in Inch", (getDistance(width)));
+//            telemetry.update();
 
-//        telemetry.addData("Coordinate", "(" + (int) cX + ", " + (int) cY + ")");
-//        telemetry.addData("Distance in Inch", (getDistance(width)));
-//        telemetry.update();
-//
         if(cX >= 250 && cX <= 600){
             telemetry.addLine("CENTER");
-            centerDropShort();
+            centerDrop();  // Spike Location center
         } else if (cX >= 50 && cX <= 150 && width >= 115) {
             telemetry.addLine("LEFT");
-            leftDropShort();
+            leftDrop();
         } else {
             telemetry.addLine("RIGHT");
-            rightDropShort();
+            rightDrop();
         }
 
         telemetry.update();
 
+        // Release resources
+
+
         if(isStopRequested()){
             return;
         }
+
 
 
 
