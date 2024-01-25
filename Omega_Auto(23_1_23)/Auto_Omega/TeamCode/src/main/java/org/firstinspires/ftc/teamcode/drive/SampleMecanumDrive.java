@@ -87,6 +87,8 @@ public class SampleMecanumDrive extends MecanumDrive {
     double cX = 0;
     double cY = 0;
 
+    double monitor = 0;
+
     public static final double objectWidthInRealWorldUnits = 4;  // Replace with the actual width of the object in real-world units
     public static final double focalLength = 600;  // Replace with the focal length of the camera in pixels
 
@@ -671,6 +673,19 @@ public class SampleMecanumDrive extends MecanumDrive {
 //        double pwr = power;//original code of intake
 //        out_take.setPower(pwr);//original code of intake
 //        }
+    }
+
+    public void purpleDrop2(double position, double wait){
+
+        double count = wait;
+        double pos = position;
+        while(purple_drop.getPosition() >= pos) {
+
+            purple_drop.setPosition(monitor + count);// new servo position
+            monitor = monitor + count;
+
+//        }
+        }
     }
 
     public void outTakeStop(){
