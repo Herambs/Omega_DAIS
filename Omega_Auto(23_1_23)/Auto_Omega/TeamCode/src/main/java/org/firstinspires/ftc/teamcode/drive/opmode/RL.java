@@ -321,7 +321,7 @@ public class RL extends LinearOpMode {
 
 
 //        auto.servoZero();//To be change if servo does not work in  auto code
-        backward(46);
+        backward(45);
         auto.purpleDrop1(1);
 //        auto.purpleDrop1(-0.35);
 //        sleep(550);
@@ -332,7 +332,7 @@ public class RL extends LinearOpMode {
         turnLeft(94.5);
         forward(75);
         turnRight(94.5);
-        forward(22.5);
+        forward(20.5);
         turnLeft(94.5);
         //strafeRight(23.8);
         auto.channelMotionEncoder(0.5, 1300);
@@ -354,7 +354,7 @@ public class RL extends LinearOpMode {
         SampleMecanumDrive auto = new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(26.7);
+        backward(26.2);
         turnLeft(94.5);
         forward(1.8);
         auto.purpleDrop1(1);
@@ -369,7 +369,7 @@ public class RL extends LinearOpMode {
         forward(73);
         sleep(100);
         turnRight(95.5);
-        forward(28.5);
+        forward(26.5);
         turnLeft(94.5);
         //strafeRight(27);
         auto.channelMotionEncoder(0.5, 1300);
@@ -389,7 +389,7 @@ public class RL extends LinearOpMode {
         SampleMecanumDrive auto = new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(26.5);
+        backward(26);
         turnRight(94.5);
         forward(3.5);
         auto.purpleDrop1(1);
@@ -405,7 +405,7 @@ public class RL extends LinearOpMode {
         forward(73);
         sleep(100);
         turnRight(94.5);
-        forward(18.5);
+        forward(16.5);
         turnLeft(95.5);
         //strafeRight(16.5);
 

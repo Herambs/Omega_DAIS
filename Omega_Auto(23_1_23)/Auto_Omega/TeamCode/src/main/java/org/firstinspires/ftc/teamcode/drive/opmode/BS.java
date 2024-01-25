@@ -321,7 +321,7 @@ public class BS extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(26.5);
+        backward(29);
         turnLeft(94.5);
         forward(2.5);
         auto.purpleDrop1(1);
@@ -333,7 +333,7 @@ public class BS extends LinearOpMode {
         forward(25);
         sleep(100);
         turnRight(94.5);
-        forward(6.5);
+        forward(4.5);
         turnLeft(94.5);
 //        strafeRight(5.5);
         auto.channelMotionEncoder(0.5, 1300);
@@ -359,7 +359,7 @@ public class BS extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(43.0);
+        backward(45.5);
         auto.purpleDrop1(1);
         sleep(550);
 //        auto.purpleDrop1(0);
@@ -368,7 +368,7 @@ public class BS extends LinearOpMode {
         forward(24);
         sleep(100);
         turnLeft(94.5);
-        forward(23);
+        forward(21);
         turnRight(94.5);
 //        strafeLeft(22);
         auto.channelMotionEncoder(0.5, 1300);
@@ -394,7 +394,7 @@ public class BS extends LinearOpMode {
         SampleMecanumDrive auto= new SampleMecanumDrive(hardwareMap);
 
 //        auto.servoZero();
-        backward(25.5);
+        backward(28);
         turnRight(94.5);
         forward(2);
         auto.purpleDrop1(1);
@@ -404,7 +404,7 @@ public class BS extends LinearOpMode {
         turnLeft(94.5);
         backward(21);
         turnRight(94.5);
-        forward(25);
+        forward(23);
         turnLeft(94.5);
         forward(25);
         turnRight(94.5);
